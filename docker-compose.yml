@@ -1,0 +1,42 @@
+version: "3.5"
+services:
+  api:
+    build:
+      context: ./backend
+    container_name: camping-api.app
+    ports:
+      - 8888:8000
+    links:
+      - db
+    volumes:
+      - ./backend/:/go/camping/api
+    command: ["/go/bin/backend", "-debug=true"]
+    restart: always
+    expose:
+      - '5300'
+  db:
+    image: mysql:8.0
+    container_name: camping-db.app
+    restart: always
+    ports:
+      - 5302:3306
+    # Where our data will be persisted
+    volumes:
+      - ./database/schema:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=camping
+      - MYSQL_ROOT_PASSWORD=password
+    expose:
+      # Opens port 5302 on the container
+      - '5302'
+  web:
+    build:
+      context: ./frontend
+    container_name: camping-web.app
+    ports:
+      - 4200:80
+    # environment:
+    #   - server_env=dev
+    # env_file:
+    #   - ~/.secrets/vars.env
+    restart: always
