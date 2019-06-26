@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"net"
 
-	pb "github.com/znacol/camping/backend/proto"
+	pb "github.com/znacol/camping/api/proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
@@ -11,7 +12,8 @@ import (
 
 // Start service
 func main() {
-	listener, err := net.Listen("tcp", ":5300")
+	// log := slf.WithContext("camping-service")
+	listener, err := net.Listen("tcp", ":30251")
 	if err != nil {
 		grpclog.Fatalf("failed to listen: %v", err)
 	}
@@ -20,6 +22,8 @@ func main() {
 
 	grpcServer := grpc.NewServer(opts...)
 	pb.RegisterCampingServiceServer(grpcServer, &server{})
+
+	fmt.Print("started service")
 
 	grpcServer.Serve(listener)
 }
