@@ -1,9 +1,15 @@
 syntax = "proto3";
+import "google/api/annotations.proto";
 
 package camping;
 
 service CampingService {
-    rpc Do(Request) returns (Response) {}
+    rpc Do(Request) returns (Response) {
+            option (google.api.http) = {
+              post: "/v1/camping/do"
+              body: "*"
+            };
+          }
 }
 message Request {
     string message = 1;

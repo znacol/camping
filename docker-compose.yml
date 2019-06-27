@@ -2,30 +2,28 @@ version: "3.5"
 
 services:
   # golang gRPC
-  api:
-    build:
-      context: .
-      dockerfile: ./api/Dockerfile
-    container_name: camping-api.app
-    restart: always
-    ports:
-      # Opens port 5300 on the container
-      - 30251:30251
-    # volumes:
-    #   - ./api:/go/src/github.com/znacol/camping/api
-    #   - ./proto:/go/src/github.com/znacol/camping/api/proto
-    links:
-      - db
-    expose:
-      - '30251'
-    command: ["/go/bin/api", "-debug=true"]
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: ./api/Dockerfile
+  #   container_name: camping-api.app
+  #   restart: always
+  #   ports:
+  #     - 30251:30251
+  #   # volumes:
+  #   #   - ./api:/go/src/github.com/znacol/camping/api
+  #   #   - ./proto:/go/src/github.com/znacol/camping/api/proto
+  #   links:
+  #     - db
+  #   expose:
+  #     - '30251'
+  #   command: ["/go/bin/api"]
 
   db:
     image: mysql:8.0
     container_name: camping-db.app
     restart: always
     ports:
-      # Opens port 5302 on the container
       - 5302:3306
     volumes:
       # Run schema updates
@@ -37,27 +35,14 @@ services:
   # Angular
   web:
     build:
-      context: .
-      dockerfile: ./web/Dockerfile
+      context: ./web
     container_name: camping-web.app
     restart: always
-    # ports:
-    #   # Opens port 4200 on the container
-    #   - 4200:80
     volumes:
-      - ./api/proto/:/proto
+      - '.:/app'
+    ports:
+      - 4200:4201
     # environment:
     #   - server_env=dev
     # env_file:
     #   - ~/.secrets/vars.env
-    expose:
-      - '4200'
-  
-  # Proxy
-  envoy:
-    build:
-      context: ./web/envoy
-    container_name: envoy
-    restart: always
-    ports:
-      - 8080:8080
