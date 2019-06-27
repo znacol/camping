@@ -1,24 +1,25 @@
 version: "3.5"
 
 services:
-  # golang gRPC
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: ./api/Dockerfile
-  #   container_name: camping-api.app
-  #   restart: always
-  #   ports:
-  #     - 30251:30251
-  #   # volumes:
-  #   #   - ./api:/go/src/github.com/znacol/camping/api
-  #   #   - ./proto:/go/src/github.com/znacol/camping/api/proto
-  #   links:
-  #     - db
-  #   expose:
-  #     - '30251'
-  #   command: ["/go/bin/api"]
+  # golang gRPC + HTTP Server
+  api:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    container_name: camping-api.app
+    restart: always
+    ports:
+      - 30251:30251
+    # volumes:
+    #   - ./api:/go/src/github.com/znacol/camping/api
+    #   - ./proto:/go/src/github.com/znacol/camping/api/proto
+    links:
+      - db
+    expose:
+      - '30251'
+    command: ["/go/bin/api"]
 
+  # mySQL database
   db:
     image: mysql:8.0
     container_name: camping-db.app
@@ -27,21 +28,21 @@ services:
       - 5302:3306
     volumes:
       # Run schema updates
-      - ./database/schema:/docker-entrypoint-initdb.d
+      - ./api/database/schema:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=camping
       - MYSQL_ROOT_PASSWORD=password
 
-  # Angular
-  web:
-    build:
-      context: ./web
-    container_name: camping-web.app
-    restart: always
-    volumes:
-      - '.:/app'
-    ports:
-      - 4200:4201
+  # Angular app
+  # web:
+  #   build:
+  #     context: ./web
+  #   container_name: camping-web.app
+  #   restart: always
+  #   volumes:
+  #     - '.:/app'
+  #   ports:
+  #     - 4200:4201
     # environment:
     #   - server_env=dev
     # env_file:

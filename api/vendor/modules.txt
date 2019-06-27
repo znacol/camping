@@ -1,3 +1,5 @@
+# github.com/go-sql-driver/mysql v1.4.1
+github.com/go-sql-driver/mysql
 # github.com/golang/protobuf v1.3.1
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/jsonpb
@@ -15,6 +17,9 @@ github.com/golang/protobuf/protoc-gen-go/plugin
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/utilities
 github.com/grpc-ecosystem/grpc-gateway/internal
+# github.com/jmoiron/sqlx v1.2.0
+github.com/jmoiron/sqlx
+github.com/jmoiron/sqlx/reflectx
 # golang.org/x/net v0.0.0-20190620200207-3b0461eec859
 golang.org/x/net/context
 golang.org/x/net/trace
@@ -30,6 +35,8 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/transform
+# google.golang.org/appengine v1.4.0
+google.golang.org/appengine/cloudsql
 # google.golang.org/genproto v0.0.0-20190627175344-8a5ba248b858
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody

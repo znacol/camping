@@ -8,13 +8,21 @@ import (
 	"strings"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
+	"github.com/znacol/camping/api/db"
 	pb "github.com/znacol/camping/api/proto"
 )
 
+type server struct {
+	dbClient DB
+}
+
 func main() {
+	db := db.New("root", "password", "camping", "localhost", "5302")
+
 	addr := ":30251"
 	clientAddr := fmt.Sprintf("localhost%s", addr)
 	lis, err := net.Listen("tcp", addr)
@@ -27,10 +35,15 @@ func main() {
 	runHTTP(clientAddr)
 }
 
-func runGRPC(lis net.Listener) {
+func runGRPC(lis net.Listener, dbClient DB) {
 	opts := []grpc.ServerOption{}
 
 	grpcServer := grpc.NewServer(opts...)
+
+	campingServer := &server{
+		dbClient: dbClient,
+	}
+
 	pb.RegisterCampingServiceServer(grpcServer, &server{})
 
 	log.Printf("gRPC Listening on %s\n", lis.Addr().String())
@@ -71,14 +84,23 @@ func runHTTP(clientAddr string) {
 	if err := pb.RegisterCampingServiceHandlerFromEndpoint(context.Background(), mux, clientAddr, opts); err != nil {
 		log.Fatalf("failed to start HTTP server: %v", err)
 	}
+
 	log.Printf("HTTP Listening on %s\n", addr)
 	log.Fatal(http.ListenAndServe(addr, allowCORS(mux)))
 }
 
-type server struct{}
+/*
+* Endpoints
+ */
 
-func (s *server) Do(c context.Context, request *pb.Request) (response *pb.Response, err error) {
-	response = &pb.Response{
+// GetSavedSites returns information on campsites
+func (s *server) GetSavedSites(c context.Context, request *pb.GetSavedSitesRequest) (response *pb.GetSavedSitesResponse, err error) {
+	locations, err := svc.dbClient.GetSavedSites(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "getting s")
+	}
+
+	response = &pb.GetSavedSitesResponse{
 		Message: "Hello world",
 	}
 

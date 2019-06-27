@@ -4,16 +4,23 @@ import "google/api/annotations.proto";
 package camping;
 
 service CampingService {
-    rpc Do(Request) returns (Response) {
+    rpc GetAllSites(GetAllSitesRequest) returns (GetAllSitesResponse) {
             option (google.api.http) = {
-              post: "/v1/camping/do"
-              body: "*"
+              get: "/v1/camping/do"
             };
           }
 }
-message Request {
-    string message = 1;
+// GetAllSitesRequest is currently empty
+message GetAllSitesRequest {
 }
-message Response {
-    string message = 1;
+
+// GetAllSitesResponse contains information regarding a camp site
+message GetAllSitesResponse {
+  int64 id = 1;
+  float latitude = 2;
+  float longitude = 3;
+  int32 national_forest_id = 4;
+  int32 district_id = 5;
+  int32 altitude = 6;
+  string notes = 7;
 }

@@ -31,14 +31,3 @@ export class AppComponent {
         );
   }
 }
-
-// var campingService = new CampingServiceClient('http://localhost:8081', null, null);
-
-// const req = new Request();
-// req.setMessage("test")
-
-// campingService.do(req, {}, function(err, response) {
-//   console.log("called api")
-//   console.log(err)
-//   console.log(response)
-// });
