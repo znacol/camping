@@ -19,7 +19,7 @@ export class AppComponent {
 
   constructor(private http: HttpClient){ }
   ngOnInit(): void {
-    this.http.post('http://localhost:8081/v1/camping/do', {
+    this.http.get('http://localhost:8081/v1/camping/sites', {
       })
         .subscribe(
           res => {

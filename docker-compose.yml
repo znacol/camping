@@ -2,22 +2,22 @@ version: "3.5"
 
 services:
   # golang gRPC + HTTP Server
-  api:
-    build:
-      context: .
-      dockerfile: ./api/Dockerfile
-    container_name: camping-api.app
-    restart: always
-    ports:
-      - 30251:30251
-    # volumes:
-    #   - ./api:/go/src/github.com/znacol/camping/api
-    #   - ./proto:/go/src/github.com/znacol/camping/api/proto
-    links:
-      - db
-    expose:
-      - '30251'
-    command: ["/go/bin/api"]
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: ./api/Dockerfile
+  #   container_name: camping-service.app
+  #   restart: always
+  #   ports:
+  #     - 30251:30251
+  #   # volumes:
+  #   #   - ./api:/go/src/github.com/znacol/camping/backend
+  #   #   - ./proto:/go/src/github.com/znacol/camping/backend/proto
+  #   links:
+  #     - db
+  #   expose:
+  #     - '30251'
+  #   command: ["/go/bin/api"]
 
   # mySQL database
   db:
