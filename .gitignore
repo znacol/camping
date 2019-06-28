@@ -1,2 +1,37 @@
-node_modules/
+# compiled output
+web/dist
+web/tmp
+web/out-tsc
+# Only exists if Bazel was run
+web/bazel-out
+
+# dependencies
+web/node_modules
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 .vscode/
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db

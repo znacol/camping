@@ -27,8 +27,6 @@ func (s *Service) GetAllSites(ctx context.Context, request *pb.GetAllSitesReques
 			Notes:            s.Notes,
 		}
 		locs = append(locs, site)
-
-		log.Printf("site: %+v", site)
 	}
 
 	response = &pb.GetAllSitesResponse{

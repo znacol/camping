@@ -11,12 +11,15 @@
 ### Local Dev
 * npm install in `web` directory
 
-
 ### Containers
-TODO
+* api
+* database
+* angular app
+* swagger docs
 
 ### Scripts
 * `compile-proto.sh` generates all necessary proto files and swagger docs
+* `compodoc -p tsconfig.json -r 4600 -s` angular documentation
 
 
 ### Ports
@@ -25,3 +28,4 @@ TODO
 * gRPC: `30251`
 * HTTP: `8081`
 * web: `4200`
+* compodoc: `4600`

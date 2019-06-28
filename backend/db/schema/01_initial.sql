@@ -1,8 +1,8 @@
 create table site
 (
 	id int primary key auto_increment,
-	latitude DECIMAL not null,
-	longitude DECIMAL not null,
+	latitude DECIMAL(10, 8) not null,
+	longitude DECIMAL(11, 8) not null,
 	national_forest_id int not null,
 	district_id int not null,
 	altitude int null,

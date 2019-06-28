@@ -8,21 +8,24 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class AppComponent {
-  latitude = -28.68352;
-  longitude = -147.20785;
-  mapType = 'satellite';
-  title = 'camping';
+  mapType = 'roadmap';
+  sites: any[] = [];
 
-  constructor(private http: HttpClient){ }
+  constructor(private http: HttpClient) { }
+
   ngOnInit(): void {
+    // Fetch all sites
     this.http.get('http://localhost:8081/v1/camping/sites', {
       })
         .subscribe(
           res => {
-            console.log(res);
+            console.log(res)
+            for (const result of res.sites) {
+              this.sites.push(result);
+            }
           },
           err => {
-            console.log("Error occured");
+            console.log('Error occured');
           }
         );
   }
