@@ -39,7 +39,7 @@ func runGRPC(lis net.Listener) {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	campingServer := campingmanager.New(db)
+	campingServer := backend.New(db)
 
 	pb.RegisterCampingServiceServer(grpcServer, campingServer)
 

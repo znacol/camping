@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "backend/proto/api.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/camping/sites": {
+      "get": {
+        "operationId": "GetAllSites",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingGetAllSitesResponse"
+            }
+          }
+        },
+        "tags": [
+          "CampingService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "campingGetAllSitesResponse": {
+      "type": "object",
+      "properties": {
+        "sites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/campingSite"
+          }
+        }
+      },
+      "title": "GetAllSitesResponse contains information regarding a camp site"
+    },
+    "campingSite": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "national_forest_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "district_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "altitude": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

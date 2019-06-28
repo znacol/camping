@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-// import { CampingServiceClient } from "./ApiServiceClientPb";
-// import { Request } from "./api_pb";
 import { HttpClient } from '@angular/common/http';
-
-
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent {
