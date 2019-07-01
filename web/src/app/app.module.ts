@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { CreateComponent } from './sidebar/create/create.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,

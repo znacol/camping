@@ -23,45 +23,13 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// GetAllSitesRequest is currently empty
-type GetAllSitesRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *GetAllSitesRequest) Reset()         { *m = GetAllSitesRequest{} }
-func (m *GetAllSitesRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAllSitesRequest) ProtoMessage()    {}
-func (*GetAllSitesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7a34b0adc58176ee, []int{0}
-}
-
-func (m *GetAllSitesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAllSitesRequest.Unmarshal(m, b)
-}
-func (m *GetAllSitesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAllSitesRequest.Marshal(b, m, deterministic)
-}
-func (m *GetAllSitesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAllSitesRequest.Merge(m, src)
-}
-func (m *GetAllSitesRequest) XXX_Size() int {
-	return xxx_messageInfo_GetAllSitesRequest.Size(m)
-}
-func (m *GetAllSitesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAllSitesRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetAllSitesRequest proto.InternalMessageInfo
-
 type Site struct {
 	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Latitude             float32  `protobuf:"fixed32,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude            float32  `protobuf:"fixed32,3,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	NationalForestId     int32    `protobuf:"varint,4,opt,name=national_forest_id,json=nationalForestId,proto3" json:"national_forest_id,omitempty"`
-	DistrictId           int32    `protobuf:"varint,5,opt,name=district_id,json=districtId,proto3" json:"district_id,omitempty"`
-	Altitude             int32    `protobuf:"varint,6,opt,name=altitude,proto3" json:"altitude,omitempty"`
+	NationalForestId     int64    `protobuf:"varint,4,opt,name=national_forest_id,json=nationalForestId,proto3" json:"national_forest_id,omitempty"`
+	DistrictId           int64    `protobuf:"varint,5,opt,name=district_id,json=districtId,proto3" json:"district_id,omitempty"`
+	Altitude             int64    `protobuf:"varint,6,opt,name=altitude,proto3" json:"altitude,omitempty"`
 	Notes                string   `protobuf:"bytes,7,opt,name=notes,proto3" json:"notes,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -72,7 +40,7 @@ func (m *Site) Reset()         { *m = Site{} }
 func (m *Site) String() string { return proto.CompactTextString(m) }
 func (*Site) ProtoMessage()    {}
 func (*Site) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7a34b0adc58176ee, []int{1}
+	return fileDescriptor_7a34b0adc58176ee, []int{0}
 }
 
 func (m *Site) XXX_Unmarshal(b []byte) error {
@@ -114,21 +82,21 @@ func (m *Site) GetLongitude() float32 {
 	return 0
 }
 
-func (m *Site) GetNationalForestId() int32 {
+func (m *Site) GetNationalForestId() int64 {
 	if m != nil {
 		return m.NationalForestId
 	}
 	return 0
 }
 
-func (m *Site) GetDistrictId() int32 {
+func (m *Site) GetDistrictId() int64 {
 	if m != nil {
 		return m.DistrictId
 	}
 	return 0
 }
 
-func (m *Site) GetAltitude() int32 {
+func (m *Site) GetAltitude() int64 {
 	if m != nil {
 		return m.Altitude
 	}
@@ -142,6 +110,156 @@ func (m *Site) GetNotes() string {
 	return ""
 }
 
+type NationalForest struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Website              string   `protobuf:"bytes,3,opt,name=website,proto3" json:"website,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *NationalForest) Reset()         { *m = NationalForest{} }
+func (m *NationalForest) String() string { return proto.CompactTextString(m) }
+func (*NationalForest) ProtoMessage()    {}
+func (*NationalForest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{1}
+}
+
+func (m *NationalForest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_NationalForest.Unmarshal(m, b)
+}
+func (m *NationalForest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_NationalForest.Marshal(b, m, deterministic)
+}
+func (m *NationalForest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NationalForest.Merge(m, src)
+}
+func (m *NationalForest) XXX_Size() int {
+	return xxx_messageInfo_NationalForest.Size(m)
+}
+func (m *NationalForest) XXX_DiscardUnknown() {
+	xxx_messageInfo_NationalForest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NationalForest proto.InternalMessageInfo
+
+func (m *NationalForest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *NationalForest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *NationalForest) GetWebsite() string {
+	if m != nil {
+		return m.Website
+	}
+	return ""
+}
+
+type District struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	NationalForestId     int64    `protobuf:"varint,2,opt,name=national_forest_id,json=nationalForestId,proto3" json:"national_forest_id,omitempty"`
+	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	MapLocation          string   `protobuf:"bytes,4,opt,name=map_location,json=mapLocation,proto3" json:"map_location,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *District) Reset()         { *m = District{} }
+func (m *District) String() string { return proto.CompactTextString(m) }
+func (*District) ProtoMessage()    {}
+func (*District) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{2}
+}
+
+func (m *District) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_District.Unmarshal(m, b)
+}
+func (m *District) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_District.Marshal(b, m, deterministic)
+}
+func (m *District) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_District.Merge(m, src)
+}
+func (m *District) XXX_Size() int {
+	return xxx_messageInfo_District.Size(m)
+}
+func (m *District) XXX_DiscardUnknown() {
+	xxx_messageInfo_District.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_District proto.InternalMessageInfo
+
+func (m *District) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *District) GetNationalForestId() int64 {
+	if m != nil {
+		return m.NationalForestId
+	}
+	return 0
+}
+
+func (m *District) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *District) GetMapLocation() string {
+	if m != nil {
+		return m.MapLocation
+	}
+	return ""
+}
+
+// GetAllSitesRequest is currently empty
+type GetAllSitesRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllSitesRequest) Reset()         { *m = GetAllSitesRequest{} }
+func (m *GetAllSitesRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllSitesRequest) ProtoMessage()    {}
+func (*GetAllSitesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{3}
+}
+
+func (m *GetAllSitesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllSitesRequest.Unmarshal(m, b)
+}
+func (m *GetAllSitesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllSitesRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllSitesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllSitesRequest.Merge(m, src)
+}
+func (m *GetAllSitesRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllSitesRequest.Size(m)
+}
+func (m *GetAllSitesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllSitesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllSitesRequest proto.InternalMessageInfo
+
 // GetAllSitesResponse contains information regarding a camp site
 type GetAllSitesResponse struct {
 	Sites                []*Site  `protobuf:"bytes,1,rep,name=sites,proto3" json:"sites,omitempty"`
@@ -154,7 +272,7 @@ func (m *GetAllSitesResponse) Reset()         { *m = GetAllSitesResponse{} }
 func (m *GetAllSitesResponse) String() string { return proto.CompactTextString(m) }
 func (*GetAllSitesResponse) ProtoMessage()    {}
 func (*GetAllSitesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7a34b0adc58176ee, []int{2}
+	return fileDescriptor_7a34b0adc58176ee, []int{4}
 }
 
 func (m *GetAllSitesResponse) XXX_Unmarshal(b []byte) error {
@@ -182,36 +300,211 @@ func (m *GetAllSitesResponse) GetSites() []*Site {
 	return nil
 }
 
+type GetNationalForestRequest struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetNationalForestRequest) Reset()         { *m = GetNationalForestRequest{} }
+func (m *GetNationalForestRequest) String() string { return proto.CompactTextString(m) }
+func (*GetNationalForestRequest) ProtoMessage()    {}
+func (*GetNationalForestRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{5}
+}
+
+func (m *GetNationalForestRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetNationalForestRequest.Unmarshal(m, b)
+}
+func (m *GetNationalForestRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetNationalForestRequest.Marshal(b, m, deterministic)
+}
+func (m *GetNationalForestRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetNationalForestRequest.Merge(m, src)
+}
+func (m *GetNationalForestRequest) XXX_Size() int {
+	return xxx_messageInfo_GetNationalForestRequest.Size(m)
+}
+func (m *GetNationalForestRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetNationalForestRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetNationalForestRequest proto.InternalMessageInfo
+
+func (m *GetNationalForestRequest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type GetNationalForestResponse struct {
+	Forest               *NationalForest `protobuf:"bytes,1,opt,name=forest,proto3" json:"forest,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *GetNationalForestResponse) Reset()         { *m = GetNationalForestResponse{} }
+func (m *GetNationalForestResponse) String() string { return proto.CompactTextString(m) }
+func (*GetNationalForestResponse) ProtoMessage()    {}
+func (*GetNationalForestResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{6}
+}
+
+func (m *GetNationalForestResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetNationalForestResponse.Unmarshal(m, b)
+}
+func (m *GetNationalForestResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetNationalForestResponse.Marshal(b, m, deterministic)
+}
+func (m *GetNationalForestResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetNationalForestResponse.Merge(m, src)
+}
+func (m *GetNationalForestResponse) XXX_Size() int {
+	return xxx_messageInfo_GetNationalForestResponse.Size(m)
+}
+func (m *GetNationalForestResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetNationalForestResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetNationalForestResponse proto.InternalMessageInfo
+
+func (m *GetNationalForestResponse) GetForest() *NationalForest {
+	if m != nil {
+		return m.Forest
+	}
+	return nil
+}
+
+type GetDistrictRequest struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetDistrictRequest) Reset()         { *m = GetDistrictRequest{} }
+func (m *GetDistrictRequest) String() string { return proto.CompactTextString(m) }
+func (*GetDistrictRequest) ProtoMessage()    {}
+func (*GetDistrictRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{7}
+}
+
+func (m *GetDistrictRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetDistrictRequest.Unmarshal(m, b)
+}
+func (m *GetDistrictRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetDistrictRequest.Marshal(b, m, deterministic)
+}
+func (m *GetDistrictRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetDistrictRequest.Merge(m, src)
+}
+func (m *GetDistrictRequest) XXX_Size() int {
+	return xxx_messageInfo_GetDistrictRequest.Size(m)
+}
+func (m *GetDistrictRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetDistrictRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetDistrictRequest proto.InternalMessageInfo
+
+func (m *GetDistrictRequest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type GetDistrictResponse struct {
+	District             *District `protobuf:"bytes,1,opt,name=district,proto3" json:"district,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *GetDistrictResponse) Reset()         { *m = GetDistrictResponse{} }
+func (m *GetDistrictResponse) String() string { return proto.CompactTextString(m) }
+func (*GetDistrictResponse) ProtoMessage()    {}
+func (*GetDistrictResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a34b0adc58176ee, []int{8}
+}
+
+func (m *GetDistrictResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetDistrictResponse.Unmarshal(m, b)
+}
+func (m *GetDistrictResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetDistrictResponse.Marshal(b, m, deterministic)
+}
+func (m *GetDistrictResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetDistrictResponse.Merge(m, src)
+}
+func (m *GetDistrictResponse) XXX_Size() int {
+	return xxx_messageInfo_GetDistrictResponse.Size(m)
+}
+func (m *GetDistrictResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetDistrictResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetDistrictResponse proto.InternalMessageInfo
+
+func (m *GetDistrictResponse) GetDistrict() *District {
+	if m != nil {
+		return m.District
+	}
+	return nil
+}
+
 func init() {
-	proto.RegisterType((*GetAllSitesRequest)(nil), "camping.GetAllSitesRequest")
 	proto.RegisterType((*Site)(nil), "camping.Site")
+	proto.RegisterType((*NationalForest)(nil), "camping.NationalForest")
+	proto.RegisterType((*District)(nil), "camping.District")
+	proto.RegisterType((*GetAllSitesRequest)(nil), "camping.GetAllSitesRequest")
 	proto.RegisterType((*GetAllSitesResponse)(nil), "camping.GetAllSitesResponse")
+	proto.RegisterType((*GetNationalForestRequest)(nil), "camping.GetNationalForestRequest")
+	proto.RegisterType((*GetNationalForestResponse)(nil), "camping.GetNationalForestResponse")
+	proto.RegisterType((*GetDistrictRequest)(nil), "camping.GetDistrictRequest")
+	proto.RegisterType((*GetDistrictResponse)(nil), "camping.GetDistrictResponse")
 }
 
 func init() { proto.RegisterFile("backend/proto/api.proto", fileDescriptor_7a34b0adc58176ee) }
 
 var fileDescriptor_7a34b0adc58176ee = []byte{
-	// 318 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x91, 0xd1, 0x4e, 0xc2, 0x30,
-	0x14, 0x86, 0xd3, 0xc1, 0x40, 0x0e, 0x91, 0xe8, 0x81, 0xc4, 0x89, 0x24, 0x2e, 0xf3, 0x66, 0x17,
-	0x86, 0x45, 0xbc, 0xf3, 0xce, 0x98, 0x68, 0xb8, 0x1d, 0x0f, 0x40, 0xca, 0x5a, 0x97, 0xc6, 0xda,
-	0xce, 0xb5, 0xf0, 0x00, 0xbe, 0x82, 0x4f, 0x66, 0x7c, 0x05, 0x1f, 0xc4, 0xac, 0x05, 0xd4, 0xe8,
-	0xdd, 0xfe, 0xff, 0xfb, 0xd7, 0xf3, 0xf7, 0x14, 0x4e, 0x56, 0xb4, 0x78, 0xe2, 0x8a, 0x65, 0x55,
-	0xad, 0xad, 0xce, 0x68, 0x25, 0xa6, 0xee, 0x0b, 0xbb, 0x05, 0x7d, 0xae, 0x84, 0x2a, 0xc7, 0x93,
-	0x52, 0xeb, 0x52, 0xf2, 0x06, 0x65, 0x54, 0x29, 0x6d, 0xa9, 0x15, 0x5a, 0x19, 0x1f, 0x4b, 0x46,
-	0x80, 0x0f, 0xdc, 0xde, 0x4a, 0xb9, 0x10, 0x96, 0x9b, 0x9c, 0xbf, 0xac, 0xb9, 0xb1, 0xc9, 0x3b,
-	0x81, 0x76, 0x63, 0xe0, 0x00, 0x02, 0xc1, 0x22, 0x12, 0x93, 0xb4, 0x95, 0x07, 0x82, 0xe1, 0x18,
-	0x0e, 0x24, 0xb5, 0xc2, 0xae, 0x19, 0x8f, 0x82, 0x98, 0xa4, 0x41, 0xbe, 0xd7, 0x38, 0x81, 0x9e,
-	0xd4, 0xaa, 0xf4, 0xb0, 0xe5, 0xe0, 0xb7, 0x81, 0x97, 0x80, 0xca, 0x4d, 0xa6, 0x72, 0xf9, 0xa8,
-	0x6b, 0x6e, 0xec, 0x52, 0xb0, 0xa8, 0x1d, 0x93, 0x34, 0xcc, 0x8f, 0x76, 0xe4, 0xde, 0x81, 0x39,
-	0xc3, 0x73, 0xe8, 0x33, 0x61, 0x6c, 0x2d, 0x0a, 0x17, 0x0b, 0x5d, 0x0c, 0x76, 0xd6, 0xdc, 0x15,
-	0xa1, 0x72, 0x5b, 0xa4, 0xe3, 0xe8, 0x5e, 0xe3, 0x08, 0x42, 0xa5, 0x2d, 0x37, 0x51, 0x37, 0x26,
-	0x69, 0x2f, 0xf7, 0x22, 0xb9, 0x81, 0xe1, 0xaf, 0x9b, 0x9a, 0x4a, 0x2b, 0xc3, 0xf1, 0x02, 0x42,
-	0xd3, 0x18, 0x11, 0x89, 0x5b, 0x69, 0x7f, 0x76, 0x38, 0xdd, 0xee, 0x6d, 0xda, 0xc4, 0x72, 0xcf,
-	0x66, 0x6b, 0x18, 0xdc, 0x79, 0x7b, 0xc1, 0xeb, 0x8d, 0x28, 0x38, 0x16, 0xd0, 0xff, 0x71, 0x1a,
-	0x9e, 0xed, 0x7f, 0xfb, 0xbb, 0xcd, 0xf1, 0xe4, 0x7f, 0xe8, 0x0b, 0x24, 0xa7, 0xaf, 0x1f, 0x9f,
-	0x6f, 0xc1, 0x10, 0x8f, 0xb3, 0xcd, 0x55, 0xb6, 0x0d, 0x66, 0x6e, 0xec, 0xaa, 0xe3, 0xde, 0xe8,
-	0xfa, 0x2b, 0x00, 0x00, 0xff, 0xff, 0xb8, 0x95, 0xb6, 0x28, 0xe5, 0x01, 0x00, 0x00,
+	// 515 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x94, 0xdf, 0x6e, 0xd3, 0x30,
+	0x14, 0xc6, 0x95, 0xf4, 0xff, 0x29, 0x54, 0xf4, 0x6c, 0x52, 0xd3, 0xae, 0xd2, 0x5a, 0xc3, 0x45,
+	0x85, 0xa0, 0x11, 0xe5, 0x8e, 0x3b, 0xc4, 0xc4, 0x34, 0x69, 0xda, 0x45, 0xf6, 0x00, 0x95, 0x9b,
+	0x98, 0xca, 0x5a, 0x1a, 0x87, 0xc6, 0x1b, 0x17, 0x13, 0x42, 0xe2, 0x15, 0x78, 0x32, 0xc4, 0x03,
+	0x70, 0xc3, 0x83, 0xa0, 0x1e, 0x3b, 0x59, 0xd3, 0x76, 0xbb, 0x8b, 0xfd, 0x7d, 0xf6, 0xef, 0x7c,
+	0x5f, 0xad, 0x42, 0x6f, 0xc1, 0xc3, 0x1b, 0x91, 0x44, 0x7e, 0xba, 0x56, 0x5a, 0xf9, 0x3c, 0x95,
+	0x53, 0xfa, 0xc2, 0x46, 0xc8, 0x57, 0xa9, 0x4c, 0x96, 0x83, 0xe1, 0x52, 0xa9, 0x65, 0x2c, 0x36,
+	0x92, 0xcf, 0x93, 0x44, 0x69, 0xae, 0xa5, 0x4a, 0x32, 0x63, 0x63, 0xbf, 0x1d, 0xa8, 0x5e, 0x4b,
+	0x2d, 0xb0, 0x03, 0xae, 0x8c, 0x3c, 0x67, 0xe4, 0x4c, 0x2a, 0x81, 0x2b, 0x23, 0x1c, 0x40, 0x33,
+	0xe6, 0x5a, 0xea, 0xdb, 0x48, 0x78, 0xee, 0xc8, 0x99, 0xb8, 0x41, 0xb1, 0xc6, 0x21, 0xb4, 0x62,
+	0x95, 0x2c, 0x8d, 0x58, 0x21, 0xf1, 0x61, 0x03, 0xdf, 0x00, 0x26, 0xc4, 0xe0, 0xf1, 0xfc, 0x8b,
+	0x5a, 0x8b, 0x4c, 0xcf, 0x65, 0xe4, 0x55, 0xe9, 0xe6, 0x17, 0xb9, 0xf2, 0x99, 0x84, 0x8b, 0x08,
+	0x4f, 0xa1, 0x1d, 0xc9, 0x4c, 0xaf, 0x65, 0x48, 0xb6, 0x1a, 0xd9, 0x20, 0xdf, 0xba, 0xa0, 0x41,
+	0x78, 0x6c, 0x07, 0xa9, 0x93, 0x5a, 0xac, 0xf1, 0x18, 0x6a, 0x89, 0xd2, 0x22, 0xf3, 0x1a, 0x23,
+	0x67, 0xd2, 0x0a, 0xcc, 0x82, 0x5d, 0x41, 0xe7, 0xaa, 0x84, 0xd9, 0x0b, 0x87, 0x50, 0x4d, 0xf8,
+	0xca, 0x04, 0x6b, 0x05, 0xf4, 0x8d, 0x1e, 0x34, 0xbe, 0x89, 0x45, 0x26, 0xb5, 0x89, 0xd4, 0x0a,
+	0xf2, 0x25, 0xfb, 0x01, 0xcd, 0x33, 0x3b, 0xcf, 0xde, 0x4d, 0x87, 0xc3, 0xba, 0x8f, 0x84, 0xcd,
+	0xb9, 0x95, 0x2d, 0xee, 0x18, 0x9e, 0xad, 0x78, 0x3a, 0x8f, 0x55, 0x48, 0x6e, 0x2a, 0xaa, 0x15,
+	0xb4, 0x57, 0x3c, 0xbd, 0xb4, 0x5b, 0xec, 0x18, 0xf0, 0x5c, 0xe8, 0x8f, 0x71, 0xbc, 0xf9, 0xa5,
+	0xb2, 0x40, 0x7c, 0xbd, 0x15, 0x99, 0x66, 0x1f, 0xe0, 0xa8, 0xb4, 0x9b, 0xa5, 0x2a, 0xc9, 0x04,
+	0xbe, 0x84, 0xda, 0x66, 0xea, 0xcc, 0x73, 0x46, 0x95, 0x49, 0x7b, 0xf6, 0x7c, 0x6a, 0x1f, 0xc2,
+	0x74, 0x63, 0x0b, 0x8c, 0xc6, 0x5e, 0x83, 0x77, 0x2e, 0x74, 0xb9, 0x25, 0x7b, 0xef, 0x6e, 0x44,
+	0x76, 0x09, 0xfd, 0x03, 0x5e, 0x4b, 0xf3, 0xa1, 0x6e, 0x62, 0xd3, 0x81, 0xf6, 0xac, 0x57, 0xe0,
+	0x76, 0x0e, 0x58, 0x1b, 0x7b, 0x45, 0x59, 0xf2, 0x3e, 0x1f, 0x63, 0x9e, 0x51, 0xb6, 0x07, 0x97,
+	0xa5, 0xbd, 0x85, 0x66, 0xfe, 0x32, 0x2c, 0xaf, 0x5b, 0xf0, 0x0a, 0x73, 0x61, 0x99, 0xfd, 0x75,
+	0xa1, 0xf3, 0xc9, 0xc8, 0xd7, 0x62, 0x7d, 0x27, 0x43, 0x81, 0x21, 0xb4, 0xb7, 0x4a, 0xc3, 0x93,
+	0xe2, 0xf8, 0x7e, 0xc1, 0x83, 0xe1, 0x61, 0xd1, 0xcc, 0xc2, 0xfa, 0x3f, 0xff, 0xfc, 0xfb, 0xe5,
+	0x1e, 0x61, 0xd7, 0xbf, 0x7b, 0xe7, 0x5b, 0xa3, 0x4f, 0xed, 0xe2, 0x3d, 0x74, 0xf7, 0x1a, 0xc3,
+	0xf1, 0xf6, 0x6d, 0x07, 0x9b, 0x1f, 0xb0, 0xa7, 0x2c, 0x16, 0x7b, 0x4a, 0xd8, 0x3e, 0xf6, 0xb6,
+	0xb1, 0xa6, 0x5b, 0xff, 0x5e, 0x46, 0xdf, 0xf1, 0x86, 0x12, 0x16, 0x0f, 0xb6, 0x94, 0x70, 0xa7,
+	0xf6, 0x72, 0xc2, 0xdd, 0xb6, 0xd9, 0x98, 0x50, 0x27, 0xd8, 0xdf, 0x46, 0xe5, 0xe5, 0x12, 0x6c,
+	0x51, 0xa7, 0x7f, 0x91, 0xf7, 0xff, 0x03, 0x00, 0x00, 0xff, 0xff, 0xb5, 0x53, 0x90, 0x06, 0x87,
+	0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -227,6 +520,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type CampingServiceClient interface {
 	GetAllSites(ctx context.Context, in *GetAllSitesRequest, opts ...grpc.CallOption) (*GetAllSitesResponse, error)
+	GetNationalForest(ctx context.Context, in *GetNationalForestRequest, opts ...grpc.CallOption) (*GetNationalForestResponse, error)
+	GetDistrict(ctx context.Context, in *GetDistrictRequest, opts ...grpc.CallOption) (*GetDistrictResponse, error)
 }
 
 type campingServiceClient struct {
@@ -246,9 +541,29 @@ func (c *campingServiceClient) GetAllSites(ctx context.Context, in *GetAllSitesR
 	return out, nil
 }
 
+func (c *campingServiceClient) GetNationalForest(ctx context.Context, in *GetNationalForestRequest, opts ...grpc.CallOption) (*GetNationalForestResponse, error) {
+	out := new(GetNationalForestResponse)
+	err := c.cc.Invoke(ctx, "/camping.CampingService/GetNationalForest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *campingServiceClient) GetDistrict(ctx context.Context, in *GetDistrictRequest, opts ...grpc.CallOption) (*GetDistrictResponse, error) {
+	out := new(GetDistrictResponse)
+	err := c.cc.Invoke(ctx, "/camping.CampingService/GetDistrict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CampingServiceServer is the server API for CampingService service.
 type CampingServiceServer interface {
 	GetAllSites(context.Context, *GetAllSitesRequest) (*GetAllSitesResponse, error)
+	GetNationalForest(context.Context, *GetNationalForestRequest) (*GetNationalForestResponse, error)
+	GetDistrict(context.Context, *GetDistrictRequest) (*GetDistrictResponse, error)
 }
 
 func RegisterCampingServiceServer(s *grpc.Server, srv CampingServiceServer) {
@@ -273,6 +588,42 @@ func _CampingService_GetAllSites_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CampingService_GetNationalForest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNationalForestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampingServiceServer).GetNationalForest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/camping.CampingService/GetNationalForest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampingServiceServer).GetNationalForest(ctx, req.(*GetNationalForestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CampingService_GetDistrict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDistrictRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampingServiceServer).GetDistrict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/camping.CampingService/GetDistrict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampingServiceServer).GetDistrict(ctx, req.(*GetDistrictRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CampingService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "camping.CampingService",
 	HandlerType: (*CampingServiceServer)(nil),
@@ -280,6 +631,14 @@ var _CampingService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllSites",
 			Handler:    _CampingService_GetAllSites_Handler,
+		},
+		{
+			MethodName: "GetNationalForest",
+			Handler:    _CampingService_GetNationalForest_Handler,
+		},
+		{
+			MethodName: "GetDistrict",
+			Handler:    _CampingService_GetDistrict_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

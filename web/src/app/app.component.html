@@ -13,6 +13,8 @@
     </agm-map>
   </div>
 
-  <div><app-sidebar></app-sidebar></div>
+  <div *ngIf="selectedSite !== undefined">
+    <app-sidebar [selectedSite]="selectedSite"></app-sidebar>
+  </div>
 
 </div>

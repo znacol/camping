@@ -1,3 +1,7 @@
-<div class="container">
-    Hello
+<div class="container" *ngIf="dataLoaded">
+    <p>Site ID: {{selectedSite.id}}</p>
+    <p>Latitude: {{selectedSite.latitude}}</p>
+    <p>Longitude: {{selectedSite.longitude}}</p>
+    <p>National Forest: {{nationalForest.forest.name}}</p>
+    <p>District: {{district.district.name}}</p>
 </div>

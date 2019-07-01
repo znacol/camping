@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   mapType = 'roadmap';
   sites: any[] = [];
+  selectedSite: any;
 
   constructor(private http: HttpClient) { }
 
@@ -18,10 +19,8 @@ export class AppComponent {
     this.http.get('http://localhost:8081/v1/camping/sites', {
       })
         .subscribe(
-          res => {
-            for (const result of res.sites) {
-              this.sites.push(result);
-            }
+          results => {
+            this._onSitesLoaded(results);
           },
           err => {
             console.log('Error occured');
@@ -29,8 +28,16 @@ export class AppComponent {
         );
   }
 
-  // TODO display sidebar
-  markerSelected(id: int): void {
-    console.log(id)
+  markerSelected(id: number): void {
+    // Get site info from ID
+    this.selectedSite = this.sites.find(i => i.id === id);
+
   }
+
+  public _onSitesLoaded = (results) => {
+    for (const result of results.sites) {
+      this.sites.push(result);
+    }
+  }
+
 }

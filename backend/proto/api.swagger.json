@@ -15,6 +15,56 @@
     "application/json"
   ],
   "paths": {
+    "/v1/camping/district/{id}": {
+      "get": {
+        "operationId": "GetDistrict",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingGetDistrictResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CampingService"
+        ]
+      }
+    },
+    "/v1/camping/forest/{id}": {
+      "get": {
+        "operationId": "GetNationalForest",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingGetNationalForestResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CampingService"
+        ]
+      }
+    },
     "/v1/camping/sites": {
       "get": {
         "operationId": "GetAllSites",
@@ -33,6 +83,25 @@
     }
   },
   "definitions": {
+    "campingDistrict": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "national_forest_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "map_location": {
+          "type": "string"
+        }
+      }
+    },
     "campingGetAllSitesResponse": {
       "type": "object",
       "properties": {
@@ -44,6 +113,37 @@
         }
       },
       "title": "GetAllSitesResponse contains information regarding a camp site"
+    },
+    "campingGetDistrictResponse": {
+      "type": "object",
+      "properties": {
+        "district": {
+          "$ref": "#/definitions/campingDistrict"
+        }
+      }
+    },
+    "campingGetNationalForestResponse": {
+      "type": "object",
+      "properties": {
+        "forest": {
+          "$ref": "#/definitions/campingNationalForest"
+        }
+      }
+    },
+    "campingNationalForest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        }
+      }
     },
     "campingSite": {
       "type": "object",
@@ -61,16 +161,16 @@
           "format": "float"
         },
         "national_forest_id": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "format": "int64"
         },
         "district_id": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "format": "int64"
         },
         "altitude": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "format": "int64"
         },
         "notes": {
           "type": "string"

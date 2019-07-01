@@ -15,13 +15,26 @@ type DB struct {
 
 // Site represents a single campsite
 type Site struct {
-	ID               int64   `db:"id" json:"id"`
-	Latitude         float64 `db:"latitude" json:"latitude"`
-	Longitude        float64 `db:"longitude" json:"longitude"`
-	NationalForestID int32   `db:"national_forest_id" json:"national_forest_id"`
-	DistrictID       int32   `db:"district_id" json:"district_id"`
-	Altitude         int32   `db:"altitude" json:"altitude"`
-	Notes            string  `db:"notes" json:"notes"`
+	ID               int64          `db:"id" json:"id"`
+	Latitude         float64        `db:"latitude" json:"latitude"`
+	Longitude        float64        `db:"longitude" json:"longitude"`
+	NationalForestID int64          `db:"national_forest_id" json:"national_forest_id"`
+	DistrictID       int64          `db:"district_id" json:"district_id"`
+	Altitude         int64          `db:"altitude" json:"altitude"`
+	Notes            sql.NullString `db:"notes" json:"notes"`
+}
+
+type NationalForest struct {
+	ID      int64          `db:"id" json:"id"`
+	Name    string         `db:"name" json:"name"`
+	Website sql.NullString `db:"website" json:"website"`
+}
+
+type District struct {
+	ID               int64          `db:"id" json:"id"`
+	NationalForestID int64          `db:"national_forest_id" json:"national_forest_id"`
+	Name             string         `db:"name" json:"name"`
+	MapLocation      sql.NullString `db:"map_location" json:"map_location"`
 }
 
 // New attempts to instantiate a connection to the mysql database
@@ -57,17 +70,43 @@ func (d *DB) GetSites(ctx context.Context) ([]Site, error) {
 	return list, err
 }
 
-func SaveSite(ctx context.Context) error {
-	err := d.dbClient.ExecContext(ctx, `
-		INSERT INTO site
-			SET
-			latitude = ?,
-			longitude = ?,
-			national_forest_id = ?,
-			district_id = ?,
-			altitude = ?,
-			notes = ?
-	`)
+// GetNationalForest retrieves a forest given an ID
+func (d *DB) GetNationalForest(ctx context.Context, id int64) (NationalForest, error) {
+	nf := NationalForest{}
+	err := d.dbClient.GetContext(ctx, &nf, `
+		SELECT *
+		FROM national_forest
+		WHERE id = ?`,
+		id,
+	)
 
-	return err
+	return nf, err
 }
+
+// GetDistrict retrieves a district given an ID
+func (d *DB) GetDistrict(ctx context.Context, id int64) (District, error) {
+	district := District{}
+	err := d.dbClient.GetContext(ctx, &district, `
+		SELECT *
+		FROM district
+		WHERE id = ?`,
+		id,
+	)
+
+	return district, err
+}
+
+// func SaveSite(ctx context.Context) error {
+// 	err := d.dbClient.ExecContext(ctx, `
+// 		INSERT INTO site
+// 			SET
+// 			latitude = ?,
+// 			longitude = ?,
+// 			national_forest_id = ?,
+// 			district_id = ?,
+// 			altitude = ?,
+// 			notes = ?
+// 	`)
+
+// 	return err
+// }
