@@ -1,0 +1,28 @@
+i {
+  font-size: 1.5em;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 300px
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  color: #E74C3C;
+  padding: 0 8px 0 8px;
+  height: 38px;
+}
+
+a {
+  text-decoration: none;
+  margin-top: 6px;
+}
+
+a:hover {
+  cursor: pointer;
+}

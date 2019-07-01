@@ -1,10 +1,18 @@
-<agm-map
-  [fitBounds]=true
-  [mapTypeId]='mapType'>
+<div class="container">
+  <div class="map">
+    <agm-map
+      [fitBounds]=true
+      [mapTypeId]='mapType'>
 
-  <agm-marker *ngFor="let site of sites"
-    [latitude]="site.latitude" [longitude]="site.longitude"
-    [agmFitBounds]="true">
-  </agm-marker>
+      <agm-marker *ngFor="let site of sites"
+        [latitude]="site.latitude" [longitude]="site.longitude"
+        (markerClick)="markerSelected(site.id)"
+        [agmFitBounds]="true">
+      </agm-marker>
 
-</agm-map>
+    </agm-map>
+  </div>
+
+  <div><app-sidebar></app-sidebar></div>
+
+</div>

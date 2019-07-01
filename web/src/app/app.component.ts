@@ -19,7 +19,6 @@ export class AppComponent {
       })
         .subscribe(
           res => {
-            console.log(res)
             for (const result of res.sites) {
               this.sites.push(result);
             }
@@ -28,5 +27,10 @@ export class AppComponent {
             console.log('Error occured');
           }
         );
+  }
+
+  // TODO display sidebar
+  markerSelected(id: int): void {
+    console.log(id)
   }
 }

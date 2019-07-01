@@ -1,8 +1,6 @@
 package backend
 
 import (
-	"log"
-
 	"golang.org/x/net/context"
 
 	"github.com/pkg/errors"

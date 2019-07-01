@@ -9,17 +9,22 @@
 * npm
 
 ### Local Dev
-* npm install in `web` directory
+* `docker-compose up -d --build` to build containers
+* In the `web` directory, run `ng serve` to serve the web
+  * `localhost:4200`
 
 ### Containers
 * api
 * database
 * angular app
-* swagger docs
+  * `localhost:4200`
+* swagger (API) docs
+  * Navigate to `localhost:4500` to view
 
 ### Scripts
 * `compile-proto.sh` generates all necessary proto files and swagger docs
 * `compodoc -p tsconfig.json -r 4600 -s` angular documentation
+  * Navigate to `localhost:4600` to view
 
 
 ### Ports

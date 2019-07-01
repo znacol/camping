@@ -56,3 +56,18 @@ func (d *DB) GetSites(ctx context.Context) ([]Site, error) {
 
 	return list, err
 }
+
+func SaveSite(ctx context.Context) error {
+	err := d.dbClient.ExecContext(ctx, `
+		INSERT INTO site
+			SET
+			latitude = ?,
+			longitude = ?,
+			national_forest_id = ?,
+			district_id = ?,
+			altitude = ?,
+			notes = ?
+	`)
+
+	return err
+}
