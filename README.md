@@ -1,5 +1,11 @@
 # All Things Camping
 
+**THIS IS STILL IN DEVELOPMENT AND IN A VERY ROUGH STATE.**
+
+Web app that utilizes mySQL, google maps, golang gRPC, and angular to save, explore, and map camp sites.
+
+![supported angular versions: 6+](https://img.shields.io/badge/supported%20angular%20versions-8+-green.svg)
+
 ### Requirements
 * go
 * Docker
@@ -17,15 +23,14 @@
 * api
 * database
 * angular app
-  * `localhost:4200`
+  * Navigate to `localhost:4200`
 * swagger (API) docs
-  * Navigate to `localhost:4500` to view
+  * Navigate to `localhost:4500`
 
 ### Scripts
 * `compile-proto.sh` generates all necessary proto files and swagger docs
-* `compodoc -p tsconfig.json -r 4600 -s` angular documentation
+* `compodoc -p tsconfig.json -r 4600 -s` generate angular documentation and serve
   * Navigate to `localhost:4600` to view
-
 
 ### Ports
 * swagger docs: `4500`

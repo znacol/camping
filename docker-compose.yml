@@ -2,22 +2,21 @@ version: "3.5"
 
 services:
   # golang gRPC + HTTP Server
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: ./api/Dockerfile
-  #   container_name: camping-service.app
-  #   restart: always
-  #   ports:
-  #     - 30251:30251
-  #   # volumes:
-  #   #   - ./api:/go/src/github.com/znacol/camping/backend
-  #   #   - ./proto:/go/src/github.com/znacol/camping/backend/proto
-  #   links:
-  #     - db
-  #   expose:
-  #     - '30251'
-  #   command: ["/go/bin/api"]
+  api:
+    build:
+      context: ./backend
+      target: builder
+    container_name: camping-api.app
+    restart: always
+    ports:
+      - 30251:30251
+    links:
+      - db
+    volumes:
+      - .:/go/src/github.com/znacol/camping/backend
+    environment:
+      - server_env=dev
+    command: ["/go/bin/backend"]
 
   # mySQL database
   db:
@@ -34,19 +33,17 @@ services:
       - MYSQL_ROOT_PASSWORD=password
 
   # Angular app
-  # web:
-  #   build:
-  #     context: ./web
-  #   container_name: camping-web.app
-  #   restart: always
-  #   volumes:
-  #     - '.:/app'
-  #   ports:
-  #     - 4200:4201
-    # environment:
-    #   - server_env=dev
-    # env_file:
-    #   - ~/.secrets/vars.env
+  web:
+    build:
+      context: ./web
+    container_name: camping-web.app
+    restart: always
+    ports:
+      - 4200:8080
+    links:
+      - api
+    volumes:
+      - ./src:/web/src
 
   swagger:
     image: swaggerapi/swagger-ui

@@ -20,7 +20,7 @@ export class AppComponent {
       })
         .subscribe(
           results => {
-            this._onSitesLoaded(results);
+            this.onSitesLoaded(results);
           },
           err => {
             console.log('Error occured');
@@ -34,7 +34,7 @@ export class AppComponent {
 
   }
 
-  public _onSitesLoaded = (results) => {
+  public onSitesLoaded = (results) => {
     for (const result of results.sites) {
       this.sites.push(result);
     }

@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	addr := ":30251"
+	addr := ":8000"
 	clientAddr := fmt.Sprintf("localhost%s", addr)
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {

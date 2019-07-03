@@ -46,6 +46,5 @@ export class SidebarComponent implements OnInit, OnChanges {
             console.log('Error occured');
           }
         );
-
   }
 }
