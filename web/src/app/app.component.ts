@@ -16,7 +16,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     // Fetch all sites
-    this.http.get('http://localhost:8081/v1/camping/sites', {
+    this.http.get('http://localhost:8000/v1/camping/sites', {
       })
         .subscribe(
           results => {

@@ -6,7 +6,7 @@ WORKDIR /go/src/github.com/znacol/camping/backend
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/backend .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/backend ./cmd
 
 # Second stage
 FROM alpine:latest

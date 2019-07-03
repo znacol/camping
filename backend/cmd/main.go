@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	addr := ":8000"
+	addr := ":8081"
 	clientAddr := fmt.Sprintf("localhost%s", addr)
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
@@ -30,7 +30,7 @@ func main() {
 }
 
 func runGRPC(lis net.Listener) {
-	db, err := db.New("root", "password", "camping", "localhost", "5302")
+	db, err := db.New("root", "password", "camping", "db", "3306")
 	if err != nil {
 		log.Fatalf("failed to connect to mysql: %v", err)
 	}
@@ -73,7 +73,7 @@ func allowCORS(h http.Handler) http.Handler {
 }
 
 func runHTTP(clientAddr string) {
-	addr := ":8081"
+	addr := ":8000"
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}

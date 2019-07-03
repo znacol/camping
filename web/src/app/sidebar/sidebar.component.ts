@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     // Fetch national forest and district info
-    this.http.get('http://localhost:8081/v1/camping/forest/' + this.selectedSite.national_forest_id, {})
+    this.http.get('http://api:8081/v1/camping/forest/' + this.selectedSite.national_forest_id, {})
         .subscribe(
           results => {
             this.nationalForest = results;
@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit, OnChanges {
           }
         );
 
-    this.http.get('http://localhost:8081/v1/camping/district/' + this.selectedSite.district_id, {})
+    this.http.get('http://api:8081/v1/camping/district/' + this.selectedSite.district_id, {})
         .pipe(finalize(() => this.dataLoaded = true))
         .subscribe(
           results => {

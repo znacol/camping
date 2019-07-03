@@ -43,3 +43,12 @@ create table district
 	map_location text null
 )
 comment 'National forest district';
+
+insert into national_forest (name) values
+    ('Arapahoe National Forest');
+
+insert into district (national_forest_id, name) values
+    (1, 'Canyon Lakes North');
+
+insert into site (latitude, longitude, national_forest_id, district_id, altitude, notes) values
+    (38.252311, -105.673388, 1, 1, 5280, 'abc');

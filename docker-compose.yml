@@ -9,11 +9,11 @@ services:
     container_name: camping-api.app
     restart: always
     ports:
-      - 30251:30251
+      - 8000:8000
     links:
       - db
     volumes:
-      - .:/go/src/github.com/znacol/camping/backend
+      - ./backend:/go/src/github.com/znacol/camping/backend
     environment:
       - server_env=dev
     command: ["/go/bin/backend"]
@@ -27,7 +27,7 @@ services:
       - 5302:3306
     volumes:
       # Run schema updates
-      - ./api/database/schema:/docker-entrypoint-initdb.d
+      - ./backend/db/schema:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=camping
       - MYSQL_ROOT_PASSWORD=password
@@ -43,7 +43,7 @@ services:
     links:
       - api
     volumes:
-      - ./src:/web/src
+      - ./web/src:/web/src
 
   swagger:
     image: swaggerapi/swagger-ui
