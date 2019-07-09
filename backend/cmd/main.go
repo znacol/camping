@@ -21,7 +21,7 @@ func main() {
 	clientAddr := fmt.Sprintf("localhost%s", addr)
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("failed to initializa TCP listen: %v", err)
+		log.Fatalf("failed to initialize TCP listen: %v", err)
 	}
 	defer lis.Close()
 

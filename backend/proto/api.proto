@@ -21,6 +21,20 @@ service CampingService {
               get: "/v1/camping/district/{id}"
             };
           }
+
+    rpc CreateSite(CreateSiteRequest) returns (CreateSiteResponse) {
+            option (google.api.http) = {
+              post: "/v1/camping/site",
+              body: "site"
+            };
+          }
+
+    rpc CreateNationalForest(CreateNationalForestRequest) returns (CreateNationalForestResponse) {
+            option (google.api.http) = {
+              post: "/v1/camping/forest",
+              body: "forest"
+            };
+          }
 }
 
 message Site {
@@ -69,4 +83,22 @@ message GetDistrictRequest {
 
 message GetDistrictResponse {
   District district = 1;
+}
+
+// CreateSiteRequest contains information necessary to create a new site
+message CreateSiteRequest {
+  Site site = 1;
+}
+
+// CreateSiteResponse is currently empty
+message CreateSiteResponse {
+}
+
+// CreateNationalForestRequest contains information necessary to create a new national forest
+message CreateNationalForestRequest {
+  NationalForest forest = 1;
+}
+
+// CreateNationalForestResponse is currently empty
+message CreateNationalForestResponse {
 }

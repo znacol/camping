@@ -71,3 +71,20 @@ func (s *Service) GetDistrict(ctx context.Context, request *pb.GetDistrictReques
 
 	return response, nil
 }
+
+// CreateSite creates a new site in the database
+func (s *Service) CreateSite(ctx context.Context, request *pb.CreateSiteRequest) (response *pb.CreateSiteResponse, err error) {
+	err = s.dbClient.CreateSite(ctx, request.Site.Latitude, request.Site.Longitude, request.Site.NationalForestId, request.Site.DistrictId, request.Site.Altitude, request.Site.Notes)
+	if err != nil {
+		return nil, errors.Wrap(err, "creating site")
+	}
+
+	return &pb.CreateSiteResponse{}, nil
+}
+
+// CreateNationalForest creates a new national forest in the database
+func (s *Service) CreateNationalForest(ctx context.Context, request *pb.CreateNationalForestRequest) (response *pb.CreateNationalForestResponse, err error) {
+	// TODO write query to save forest
+
+	return &pb.CreateNationalForestResponse{}, nil
+}

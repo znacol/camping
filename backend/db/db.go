@@ -96,17 +96,24 @@ func (d *DB) GetDistrict(ctx context.Context, id int64) (District, error) {
 	return district, err
 }
 
-// func SaveSite(ctx context.Context) error {
-// 	err := d.dbClient.ExecContext(ctx, `
-// 		INSERT INTO site
-// 			SET
-// 			latitude = ?,
-// 			longitude = ?,
-// 			national_forest_id = ?,
-// 			district_id = ?,
-// 			altitude = ?,
-// 			notes = ?
-// 	`)
+// CreateSite saves a new site
+func (d *DB) CreateSite(ctx context.Context, latitude float32, longitude float32, nationalForestID int64, districtID int64, altitude int64, notes string) error {
+	_, err := d.dbClient.ExecContext(ctx, `
+		INSERT INTO site
+			SET
+			latitude = ?,
+			longitude = ?,
+			national_forest_id = ?,
+			district_id = ?,
+			altitude = ?,
+			notes = ?
+	`,
+		latitude,
+		longitude,
+		nationalForestID,
+		districtID,
+		altitude,
+		notes)
 
-// 	return err
-// }
+	return err
+}

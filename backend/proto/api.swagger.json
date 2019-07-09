@@ -40,6 +40,32 @@
         ]
       }
     },
+    "/v1/camping/forest": {
+      "post": {
+        "operationId": "CreateNationalForest",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingCreateNationalForestResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/campingNationalForest"
+            }
+          }
+        ],
+        "tags": [
+          "CampingService"
+        ]
+      }
+    },
     "/v1/camping/forest/{id}": {
       "get": {
         "operationId": "GetNationalForest",
@@ -65,6 +91,32 @@
         ]
       }
     },
+    "/v1/camping/site": {
+      "post": {
+        "operationId": "CreateSite",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingCreateSiteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/campingSite"
+            }
+          }
+        ],
+        "tags": [
+          "CampingService"
+        ]
+      }
+    },
     "/v1/camping/sites": {
       "get": {
         "operationId": "GetAllSites",
@@ -83,6 +135,14 @@
     }
   },
   "definitions": {
+    "campingCreateNationalForestResponse": {
+      "type": "object",
+      "title": "CreateNationalForestResponse is currently empty"
+    },
+    "campingCreateSiteResponse": {
+      "type": "object",
+      "title": "CreateSiteResponse is currently empty"
+    },
     "campingDistrict": {
       "type": "object",
       "properties": {

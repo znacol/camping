@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Site } from './Site'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   mapType = 'roadmap';
   sites: any[] = [];
-  selectedSite: any;
+  selectedSite: Site;
+  newSite: Site;
 
   constructor(private http: HttpClient) { }
 
@@ -28,16 +31,24 @@ export class AppComponent {
         );
   }
 
-  markerSelected(id: number): void {
-    // Get site info from ID
-    this.selectedSite = this.sites.find(i => i.id === id);
-
-  }
-
   public onSitesLoaded = (results) => {
     for (const result of results.sites) {
       this.sites.push(result);
     }
+  }
+
+  public markerSelected = (id: number) => {
+    // Get site info from ID
+    this.selectedSite = this.sites.find(i => i.id === id);
+    // TODO fix logic...
+    this.newSite = undefined;
+
+  }
+
+  public siteClicked = (event) => {
+    this.newSite = event.coords;
+    // TODO fix logic...
+    this.selectedSite = undefined;
   }
 
 }

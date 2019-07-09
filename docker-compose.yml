@@ -45,6 +45,7 @@ services:
     volumes:
       - ./web/src:/web/src
 
+  # API docs
   swagger:
     image: swaggerapi/swagger-ui
     container_name: swagger-docs

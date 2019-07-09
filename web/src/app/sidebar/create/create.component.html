@@ -1,1 +1,60 @@
-<p>create works!</p>
+<div class="container">
+    <h1>Site Creation</h1>
+    <form #siteForm="ngForm" (ngSubmit)="submitSite(siteForm.form);">
+        <label for="latitude">Latitude</label> <br>
+        <input type="text"
+        class="form-control"
+        name="latitude"
+        [ngModel]="newSite.lat"
+        #latitudeField="ngModel">
+
+        <br>
+
+        <label for="longitude">Longitude</label> <br>
+        <input type="text"
+        class="form-control"
+        name="longitude"
+        [ngModel]="newSite.lng"
+        #longitudeField="ngModel">
+
+        <br>
+
+        <label for="national_forest">National Forest</label> <br>
+        <input type="text"
+        class="form-control"
+        name="national_forest"
+        ngModel
+        #nationalForestField="ngModel">
+
+        <br>
+
+        <label for="district">District</label> <br>
+        <input type="text"
+        class="form-control"
+        name="district"
+        ngModel
+        #districtField="ngModel">
+
+        <br>
+
+        <label for="altitude">Altitude</label> <br>
+        <input type="text"
+        class="form-control"
+        name="altitude"
+        ngModel
+        #altitudeField="ngModel">
+
+        <br>
+
+        <label for="notes">Notes</label> <br>
+        <input type="text"
+        class="form-control"
+        name="notes"
+        ngModel
+        #notesField="ngModel">
+
+        <br>
+
+    <button class="btn btn-primary">Submit</button>
+    </form>
+</div>

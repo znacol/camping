@@ -1,7 +1,8 @@
-<div class="container" *ngIf="dataLoaded">
-    <p>Site ID: {{selectedSite.id}}</p>
-    <p>Latitude: {{selectedSite.latitude}}</p>
-    <p>Longitude: {{selectedSite.longitude}}</p>
-    <p>National Forest: {{nationalForest.forest.name}}</p>
-    <p>District: {{district.district.name}}</p>
+<div class="sidebar">
+    <div *ngIf="selectedSite !== undefined">
+        <app-details [selectedSite]="selectedSite"></app-details>
+    </div>
+    <div *ngIf="newSite !== undefined">
+        <app-create [newSite]="newSite"></app-create>
+    </div>
 </div>

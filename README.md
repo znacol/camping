@@ -4,8 +4,6 @@
 
 Web app that utilizes mySQL, google maps, golang gRPC, and angular to save, explore, and map camp sites.
 
-![supported angular versions: 6+](https://img.shields.io/badge/supported%20angular%20versions-8+-green.svg)
-
 ### Requirements
 * go
 * Docker
@@ -15,15 +13,13 @@ Web app that utilizes mySQL, google maps, golang gRPC, and angular to save, expl
 * npm
 
 ### Local Dev
-* `docker-compose up -d --build` to build containers
-* In the `web` directory, run `ng serve` to serve the web
-  * `localhost:4200`
+* `docker-compose up -d` to start containers
 
 ### Containers
 * api
 * database
 * angular app
-  * Navigate to `localhost:4200`
+  * Navigate to `0.0.0.0:4200`
 * swagger (API) docs
   * Navigate to `localhost:4500`
 
