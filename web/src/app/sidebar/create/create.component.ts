@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
             console.log(results)
           },
           err => {
-            console.log(err, 'Error occured');
+            console.log(err, 'Error creating site');
           }
         );
   }

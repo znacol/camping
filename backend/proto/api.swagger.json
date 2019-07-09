@@ -40,6 +40,22 @@
         ]
       }
     },
+    "/v1/camping/districts": {
+      "get": {
+        "operationId": "GetAllDistricts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingGetAllDistrictsResponse"
+            }
+          }
+        },
+        "tags": [
+          "CampingService"
+        ]
+      }
+    },
     "/v1/camping/forest": {
       "post": {
         "operationId": "CreateNationalForest",
@@ -86,6 +102,22 @@
             "format": "int64"
           }
         ],
+        "tags": [
+          "CampingService"
+        ]
+      }
+    },
+    "/v1/camping/forests": {
+      "get": {
+        "operationId": "GetAllNationalForests",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingGetAllNationalForestsResponse"
+            }
+          }
+        },
         "tags": [
           "CampingService"
         ]
@@ -159,6 +191,28 @@
         },
         "map_location": {
           "type": "string"
+        }
+      }
+    },
+    "campingGetAllDistrictsResponse": {
+      "type": "object",
+      "properties": {
+        "districts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/campingDistrict"
+          }
+        }
+      }
+    },
+    "campingGetAllNationalForestsResponse": {
+      "type": "object",
+      "properties": {
+        "forests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/campingNationalForest"
+          }
         }
       }
     },

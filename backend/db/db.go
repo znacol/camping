@@ -83,6 +83,17 @@ func (d *DB) GetNationalForest(ctx context.Context, id int64) (NationalForest, e
 	return nf, err
 }
 
+// GetAllNationalForests retrieves all national forests
+func (d *DB) GetAllNationalForests(ctx context.Context) ([]NationalForest, error) {
+	nf := []NationalForest{}
+	err := d.dbClient.SelectContext(ctx, &nf, `
+		SELECT *
+		FROM national_forest`,
+	)
+
+	return nf, err
+}
+
 // GetDistrict retrieves a district given an ID
 func (d *DB) GetDistrict(ctx context.Context, id int64) (District, error) {
 	district := District{}
@@ -94,6 +105,17 @@ func (d *DB) GetDistrict(ctx context.Context, id int64) (District, error) {
 	)
 
 	return district, err
+}
+
+// GetAllDistricts retrieves all districts
+func (d *DB) GetAllDistricts(ctx context.Context) ([]District, error) {
+	districts := []District{}
+	err := d.dbClient.GetContext(ctx, &districts, `
+		SELECT *
+		FROM district`,
+	)
+
+	return districts, err
 }
 
 // CreateSite saves a new site

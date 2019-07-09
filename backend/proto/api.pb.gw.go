@@ -91,6 +91,24 @@ func request_CampingService_GetDistrict_0(ctx context.Context, marshaler runtime
 
 }
 
+func request_CampingService_GetAllNationalForests_0(ctx context.Context, marshaler runtime.Marshaler, client CampingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetAllNationalForestsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.GetAllNationalForests(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func request_CampingService_GetAllDistricts_0(ctx context.Context, marshaler runtime.Marshaler, client CampingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetAllDistrictsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.GetAllDistricts(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
 func request_CampingService_CreateSite_0(ctx context.Context, marshaler runtime.Marshaler, client CampingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateSiteRequest
 	var metadata runtime.ServerMetadata
@@ -223,6 +241,46 @@ func RegisterCampingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("GET", pattern_CampingService_GetAllNationalForests_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_CampingService_GetAllNationalForests_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CampingService_GetAllNationalForests_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CampingService_GetAllDistricts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_CampingService_GetAllDistricts_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CampingService_GetAllDistricts_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_CampingService_CreateSite_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -273,6 +331,10 @@ var (
 
 	pattern_CampingService_GetDistrict_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "camping", "district", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 
+	pattern_CampingService_GetAllNationalForests_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "camping", "forests"}, "", runtime.AssumeColonVerbOpt(true)))
+
+	pattern_CampingService_GetAllDistricts_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "camping", "districts"}, "", runtime.AssumeColonVerbOpt(true)))
+
 	pattern_CampingService_CreateSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "camping", "site"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_CampingService_CreateNationalForest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "camping", "forest"}, "", runtime.AssumeColonVerbOpt(true)))
@@ -284,6 +346,10 @@ var (
 	forward_CampingService_GetNationalForest_0 = runtime.ForwardResponseMessage
 
 	forward_CampingService_GetDistrict_0 = runtime.ForwardResponseMessage
+
+	forward_CampingService_GetAllNationalForests_0 = runtime.ForwardResponseMessage
+
+	forward_CampingService_GetAllDistricts_0 = runtime.ForwardResponseMessage
 
 	forward_CampingService_CreateSite_0 = runtime.ForwardResponseMessage
 

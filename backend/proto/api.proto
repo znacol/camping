@@ -22,6 +22,18 @@ service CampingService {
             };
           }
 
+    rpc GetAllNationalForests(GetAllNationalForestsRequest) returns (GetAllNationalForestsResponse) {
+            option (google.api.http) = {
+              get: "/v1/camping/forests"
+            };
+          }
+
+    rpc GetAllDistricts(GetAllDistrictsRequest) returns (GetAllDistrictsResponse) {
+            option (google.api.http) = {
+              get: "/v1/camping/districts"
+            };
+          }
+
     rpc CreateSite(CreateSiteRequest) returns (CreateSiteResponse) {
             option (google.api.http) = {
               post: "/v1/camping/site",
@@ -83,6 +95,20 @@ message GetDistrictRequest {
 
 message GetDistrictResponse {
   District district = 1;
+}
+
+message GetAllNationalForestsRequest {
+}
+
+message GetAllNationalForestsResponse {
+  repeated NationalForest forests = 1;
+}
+
+message GetAllDistrictsRequest {
+}
+
+message GetAllDistrictsResponse {
+  repeated District districts = 1;
 }
 
 // CreateSiteRequest contains information necessary to create a new site
