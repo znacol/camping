@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Site Creation</h1>
-    <form #siteForm="ngForm" (ngSubmit)="submitSite(siteForm.form);">
+    <form #siteForm="ngForm" (ngSubmit)="submitSite(siteForm.form);" *ngIf="dataLoaded">
         <label for="latitude">Latitude</label> <br>
         <input type="text"
         class="form-control"
@@ -20,20 +20,28 @@
         <br>
 
         <label for="national_forest">National Forest</label> <br>
-        <input type="text"
-        class="form-control"
-        name="national_forest"
+        <select class="form-control"
+        name="forest"
         ngModel
         #nationalForestField="ngModel">
+            <option *ngFor="let forest of nationalForests.forests" 
+            [value]="forest.id">
+            {{ forest.name }}
+            </option> 
+        </select>
 
         <br>
 
         <label for="district">District</label> <br>
-        <input type="text"
-        class="form-control"
+        <select class="form-control"
         name="district"
         ngModel
         #districtField="ngModel">
+            <option *ngFor="let district of districts.districts" 
+            [value]="district.id">
+            {{ district.name }}
+            </option> 
+        </select>
 
         <br>
 

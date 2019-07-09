@@ -8,13 +8,13 @@ import (
 )
 
 // GetNationalForest retrieves a forest given an id
-func (s *Service) GetNationalForest(ctx context.Context, request *pb.GetNationalForestRequest) (response *pb.GetNationalForestResponse, err error) {
+func (s *Service) GetNationalForest(ctx context.Context, request *pb.GetNationalForestRequest) (*pb.GetNationalForestResponse, error) {
 	forest, err := s.dbClient.GetNationalForest(ctx, request.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching national forest")
 	}
 
-	response = &pb.GetNationalForestResponse{
+	response := &pb.GetNationalForestResponse{
 		Forest: &pb.NationalForest{
 			Id:      forest.ID,
 			Name:    forest.Name,
@@ -33,12 +33,13 @@ func (s *Service) CreateNationalForest(ctx context.Context, request *pb.CreateNa
 }
 
 // GetAllNationalForests retrieves all national forests
-func (s *Service) GetAllNationalForests(ctx context.Context, request *pb.GetAllNationalForestsRequest) (response *pb.GetAllNationalForestsResponse, err error) {
+func (s *Service) GetAllNationalForests(ctx context.Context, request *pb.GetAllNationalForestsRequest) (*pb.GetAllNationalForestsResponse, error) {
 	forests, err := s.dbClient.GetAllNationalForests(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching national forest")
 	}
 
+	locs := make([]*pb.NationalForest, 0, len(forests))
 	for _, f := range forests {
 		forest := &pb.NationalForest{
 			Id:      f.ID,
@@ -46,7 +47,11 @@ func (s *Service) GetAllNationalForests(ctx context.Context, request *pb.GetAllN
 			Website: f.Website.String,
 		}
 
-		response.Forests = append(response.Forests, forest)
+		locs = append(locs, forest)
+	}
+
+	response := &pb.GetAllNationalForestsResponse{
+		Forests: locs,
 	}
 
 	return response, nil

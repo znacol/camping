@@ -8,13 +8,13 @@ import (
 )
 
 // GetDistrict retrieves a district given an id
-func (s *Service) GetDistrict(ctx context.Context, request *pb.GetDistrictRequest) (response *pb.GetDistrictResponse, err error) {
+func (s *Service) GetDistrict(ctx context.Context, request *pb.GetDistrictRequest) (*pb.GetDistrictResponse, error) {
 	forest, err := s.dbClient.GetDistrict(ctx, request.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching district")
 	}
 
-	response = &pb.GetDistrictResponse{
+	response := &pb.GetDistrictResponse{
 		District: &pb.District{
 			Id:               forest.ID,
 			NationalForestId: forest.NationalForestID,
@@ -27,12 +27,13 @@ func (s *Service) GetDistrict(ctx context.Context, request *pb.GetDistrictReques
 }
 
 // GetAllDistricts retrieves all districts
-func (s *Service) GetAllDistricts(ctx context.Context, request *pb.GetAllDistrictsRequest) (response *pb.GetAllDistrictsResponse, err error) {
+func (s *Service) GetAllDistricts(ctx context.Context, request *pb.GetAllDistrictsRequest) (*pb.GetAllDistrictsResponse, error) {
 	districts, err := s.dbClient.GetAllDistricts(ctx)
 	if err != nil {
-		return nil, errors.Wrap(err, "fetching national forest")
+		return nil, errors.Wrap(err, "fetching districts")
 	}
 
+	locs := make([]*pb.District, 0, len(districts))
 	for _, d := range districts {
 		district := &pb.District{
 			Id:               d.ID,
@@ -41,7 +42,11 @@ func (s *Service) GetAllDistricts(ctx context.Context, request *pb.GetAllDistric
 			MapLocation:      d.MapLocation.String,
 		}
 
-		response.Districts = append(response.Districts, district)
+		locs = append(locs, district)
+	}
+
+	response := &pb.GetAllDistrictsResponse{
+		Districts: locs,
 	}
 
 	return response, nil

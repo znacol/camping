@@ -4,7 +4,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { Site } from '../Site'
+import { Site } from '../site'
 
 @Component({
   selector: 'app-sidebar',

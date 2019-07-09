@@ -110,7 +110,7 @@ func (d *DB) GetDistrict(ctx context.Context, id int64) (District, error) {
 // GetAllDistricts retrieves all districts
 func (d *DB) GetAllDistricts(ctx context.Context) ([]District, error) {
 	districts := []District{}
-	err := d.dbClient.GetContext(ctx, &districts, `
+	err := d.dbClient.SelectContext(ctx, &districts, `
 		SELECT *
 		FROM district`,
 	)

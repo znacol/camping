@@ -8,7 +8,7 @@ import (
 )
 
 // GetAllSites retrieves all sites and their info
-func (s *Service) GetAllSites(ctx context.Context, request *pb.GetAllSitesRequest) (response *pb.GetAllSitesResponse, err error) {
+func (s *Service) GetAllSites(ctx context.Context, request *pb.GetAllSitesRequest) (*pb.GetAllSitesResponse, error) {
 	sites, err := s.dbClient.GetSites(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "getting sites")
@@ -28,7 +28,7 @@ func (s *Service) GetAllSites(ctx context.Context, request *pb.GetAllSitesReques
 		locs = append(locs, site)
 	}
 
-	response = &pb.GetAllSitesResponse{
+	response := &pb.GetAllSitesResponse{
 		Sites: locs,
 	}
 
@@ -36,8 +36,8 @@ func (s *Service) GetAllSites(ctx context.Context, request *pb.GetAllSitesReques
 }
 
 // CreateSite creates a new site in the database
-func (s *Service) CreateSite(ctx context.Context, request *pb.CreateSiteRequest) (response *pb.CreateSiteResponse, err error) {
-	err = s.dbClient.CreateSite(ctx, request.Site.Latitude, request.Site.Longitude, request.Site.NationalForestId, request.Site.DistrictId, request.Site.Altitude, request.Site.Notes)
+func (s *Service) CreateSite(ctx context.Context, request *pb.CreateSiteRequest) (*pb.CreateSiteResponse, error) {
+	err := s.dbClient.CreateSite(ctx, request.Site.Latitude, request.Site.Longitude, request.Site.NationalForestId, request.Site.DistrictId, request.Site.Altitude, request.Site.Notes)
 	if err != nil {
 		return nil, errors.Wrap(err, "creating site")
 	}
