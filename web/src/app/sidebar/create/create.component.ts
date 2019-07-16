@@ -21,6 +21,7 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     // Fetch national forest and district info for creation dropdown
     this.http.get('http://localhost:8000/v1/camping/forests', {})
+        .pipe(finalize(() => this.dataLoaded = true))
         .subscribe(
           results => {
             this.nationalForests = results;
@@ -31,6 +32,7 @@ export class CreateComponent implements OnInit {
         );
 
     this.http.get('http://localhost:8000/v1/camping/districts', {})
+        .pipe(finalize(() => this.dataLoaded = true))
         .subscribe(
           results => {
             this.districts = results;
@@ -48,15 +50,15 @@ export class CreateComponent implements OnInit {
 
     console.log(form.value)
 
-    // this.http.post('http://localhost:8000/v1/camping/site', {latitude: form.value.latitude, longitude: form.value.longitude, national_forest_id: form.value.national_forest_id, district_id: form.value.district_id, altitude: form.value.altitude, notes: form.value.notes})
-    //     .pipe(finalize(() => form.reset())) // TODO navigate to details view
-    //     .subscribe(
-    //       results => {
-    //         console.log(results)
-    //       },
-    //       err => {
-    //         console.log(err, 'Error creating site');
-    //       }
-    //     );
+    this.http.post('http://localhost:8000/v1/camping/site', {latitude: form.value.latitude, longitude: form.value.longitude, national_forest_id: form.value.forest, district_id: form.value.district, altitude: form.value.altitude, notes: form.value.notes})
+        .pipe(finalize(() => form.reset())) // TODO navigate to details view
+        .subscribe(
+          results => {
+            console.log(results)
+          },
+          err => {
+            console.log(err, 'Error creating site');
+          }
+        );
   }
 }
