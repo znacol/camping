@@ -2,15 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 
-import { Site } from '../../site'
+import { site } from '../../site'
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  selector: 'app-create-site',
+  templateUrl: './create-site.component.html',
+  styleUrls: ['./create-site.component.scss']
 })
-export class CreateComponent implements OnInit {
-  @Input() newSite: Site;
+export class CreateSiteComponent implements OnInit {
+  @Input() newSite: site;
   submitted = false;
   dataLoaded = true;
   nationalForests: any;
@@ -47,8 +47,6 @@ export class CreateComponent implements OnInit {
 
   submitSite(form){
     this.submitted = true;
-
-    console.log(form.value)
 
     this.http.post('http://localhost:8000/v1/camping/site', {latitude: form.value.latitude, longitude: form.value.longitude, national_forest_id: form.value.forest, district_id: form.value.district, altitude: form.value.altitude, notes: form.value.notes})
         .pipe(finalize(() => form.reset())) // TODO navigate to details view

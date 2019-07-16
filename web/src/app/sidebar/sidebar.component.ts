@@ -4,7 +4,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { Site } from '../site'
+import { site } from '../site'
 
 @Component({
   selector: 'app-sidebar',
@@ -13,8 +13,8 @@ import { Site } from '../site'
 })
 
 export class SidebarComponent implements OnInit {
-  @Input() selectedSite: Site;
-  @Input() newSite: Site;
+  @Input() selectedSite: site;
+  @Input() newSite: site;
 
   constructor() { }
 

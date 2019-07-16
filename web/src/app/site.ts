@@ -1,4 +1,4 @@
-export class Site {
+export class site {
     id: number;
     latitude: number;
     longitude: number;

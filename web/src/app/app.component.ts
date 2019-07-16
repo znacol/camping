@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Site } from './Site'
+import { site } from './Site'
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,9 @@ import { Site } from './Site'
 
 export class AppComponent {
   mapType = 'roadmap';
-  sites: any[] = [];
-  selectedSite: Site;
-  newSite: Site;
+  sites: site[] = [];
+  selectedSite: site;
+  newSite: site;
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +31,7 @@ export class AppComponent {
         );
   }
 
-  public onSitesLoaded = (results) => {
+  public onSitesLoaded = (results: any) => {
     for (const result of results.sites) {
       this.sites.push(result);
     }

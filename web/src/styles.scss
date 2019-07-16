@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #EBEBEB;
+  margin: 0;
+}
+
+#content-outer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#content-inner {
+  width: 100%;
+  max-width: 1280px;
+  background-color: #FFFFFF;
+}

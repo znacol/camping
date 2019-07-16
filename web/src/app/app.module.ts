@@ -3,22 +3,23 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
+import { AgmCoreModule } from '@agm/core';
 
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { AgmCoreModule } from '@agm/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { CreateComponent } from './sidebar/create/create.component';
+import { CreateSiteComponent } from './sidebar/create-site/create-site.component';
 import { DetailsComponent } from './sidebar/details/details.component';
+
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    CreateComponent,
+    CreateSiteComponent,
     DetailsComponent
   ],
   imports: [
@@ -28,7 +29,8 @@ import { DetailsComponent } from './sidebar/details/details.component';
     }),
     HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
