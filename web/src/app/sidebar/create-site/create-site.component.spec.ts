@@ -8,13 +8,13 @@ describe('CreateSiteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateComponent ]
+      declarations: [ CreateSiteComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateComponent);
+    fixture = TestBed.createComponent(CreateSiteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

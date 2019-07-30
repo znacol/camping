@@ -20,7 +20,8 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     SidebarComponent,
     CreateSiteComponent,
-    DetailsComponent
+    DetailsComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -16,7 +16,6 @@ export class DetailsComponent implements OnInit, OnChanges {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    console.log("fethcing nf info")
     // Fetch national forest and district info
     this.http.get('http://localhost:8000/v1/camping/forest/' + this.selectedSite.national_forest_id, {})
         .subscribe(
@@ -39,7 +38,7 @@ export class DetailsComponent implements OnInit, OnChanges {
           }
         );
 
-      this.dataLoaded = true;
+    this.dataLoaded = true;
   }
 
   ngOnChanges() {

@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit
+ } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { site } from './Site'
+import { site } from './site';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +12,7 @@ import { site } from './Site'
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   mapType = 'roadmap';
   sites: site[] = [];
   selectedSite: site;
@@ -26,7 +29,7 @@ export class AppComponent {
             this.onSitesLoaded(results);
           },
           err => {
-            console.log('Error occured');
+            console.log(err, 'Error occured');
           }
         );
   }
