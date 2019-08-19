@@ -12,7 +12,7 @@ import { site } from './site';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   mapType = 'roadmap';
   sites: site[] = [];
   selectedSite: site;

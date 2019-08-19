@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"net"
 
+	"github.com/DavidHuie/gomigrate"
 	"github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -57,6 +58,17 @@ func New(username, password, schemaName, host, port string) (*DB, error) {
 	return &DB{
 		dbClient: sqlx.NewDb(conn, "mysql"),
 	}, nil
+}
+
+// Migrate will perform any necessary migrations on the database.  The location
+// of the migration directory will need to be passed to this, since it will
+// probably be manually copied to the server
+func (d *DB) Migrate(migrateDir string) error {
+	migrator, err := gomigrate.NewMigrator(d.dbClient.DB, gomigrate.Mysql{}, migrateDir)
+	if err != nil {
+		return err
+	}
+	return migrator.Migrate()
 }
 
 // GetSites returns all campsites

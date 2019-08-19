@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"strings"
@@ -11,6 +10,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/znacol/camping/backend"
 	"github.com/znacol/camping/backend/db"
 	pb "github.com/znacol/camping/backend/proto"
@@ -35,7 +35,7 @@ func runGRPC(lis net.Listener) {
 		log.Fatalf("failed to connect to mysql: %v", err)
 	}
 
-	opts := []grpc.ServerOption{}
+	var opts []grpc.ServerOption
 
 	grpcServer := grpc.NewServer(opts...)
 
@@ -43,7 +43,7 @@ func runGRPC(lis net.Listener) {
 
 	pb.RegisterCampingServiceServer(grpcServer, campingServer)
 
-	log.Printf("gRPC Listening on %s\n", lis.Addr().String())
+	log.Infof("gRPC Listening on %s", lis.Addr().String())
 	grpcServer.Serve(lis)
 }
 
@@ -58,7 +58,7 @@ func preflightHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // TODO cleanup + secure
-// allowCORS allows Cross Origin Resoruce Sharing from any origin.
+// allowCORS allows Cross Origin Resource Sharing from any origin.
 func allowCORS(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if origin := r.Header.Get("Origin"); origin != "" {
@@ -82,6 +82,6 @@ func runHTTP(clientAddr string) {
 		log.Fatalf("failed to start HTTP server: %v", err)
 	}
 
-	log.Printf("HTTP Listening on %s\n", addr)
+	log.Infof("HTTP Listening on %s", addr)
 	log.Fatal(http.ListenAndServe(addr, allowCORS(mux)))
 }

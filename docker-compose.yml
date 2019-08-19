@@ -2,57 +2,63 @@ version: "3.5"
 
 services:
   # golang gRPC + HTTP Server
-  api:
-    build:
-      context: ./backend
-      target: builder
-    container_name: camping-api.app
-    restart: always
-    ports:
-      - 8000:8000
-    links:
-      - db
-    volumes:
-      - ./backend:/go/src/github.com/znacol/camping/backend
-    environment:
-      - server_env=dev
-    command: ["/go/bin/backend"]
+    camping-api:
+      container_name: camping-api
+      hostname: camping-api
+      image: golang:1.12.7-alpine3.10
+      entrypoint: /bin/sh
+      command:
+        - "-cexu"
+        - "CGO_ENABLED=0 go build -a -o /go/bin/api github.com/znacol/camping/backend/cmd/api && /go/bin/api"
+      ports:
+        - "50051"
+        - "8000"
+        - "50052"
+        - "8001"
+        # - "8080" # Web port is ignored in dev, in favor of a live-reloading angular container
+        - "6060"
+      volumes:
+        - ".:/go/src/github.com/znacol/camping:ro"
+      environment:
+        - server_env=dev
+      depends_on:
+        - db
 
-  # mySQL database
-  db:
-    image: mysql:8.0
-    container_name: camping-db.app
-    restart: always
-    ports:
-      - 5302:3306
-    volumes:
-      # Run schema updates
-      - ./backend/db/schema:/docker-entrypoint-initdb.d
-    environment:
-      - MYSQL_DATABASE=camping
-      - MYSQL_ROOT_PASSWORD=password
+    # mySQL database
+    db:
+      image: mysql:8.0
+      container_name: camping-db.app
+      restart: always
+      ports:
+        - 5302:3306
+      volumes:
+        # Run schema updates
+        - ./backend/db/schema:/docker-entrypoint-initdb.d
+      environment:
+        - MYSQL_DATABASE=camping
+        - MYSQL_ROOT_PASSWORD=password
 
-  # Angular app
-  web:
-    build:
-      context: ./web
-    container_name: camping-web.app
-    restart: always
-    ports:
-      - 4200:8080
-    links:
-      - api
-    volumes:
-      - ./web/src:/web/src
+    # Angular app
+    web:
+      build:
+        context: ./web
+      container_name: camping-web.app
+      restart: always
+      ports:
+        - 4200:8080
+      links:
+        - camping-api
+      volumes:
+        - ./web/src:/web/src
 
-  # API docs
-  swagger:
-    image: swaggerapi/swagger-ui
-    container_name: swagger-docs
-    restart: always
-    ports:
-      - 4500:8080
-    environment:
-      - SWAGGER_JSON=/mnt/api.swagger.json
-    volumes:
-      - ./backend/proto:/mnt
+    # API docs
+    swagger:
+      image: swaggerapi/swagger-ui
+      container_name: swagger-docs
+      restart: always
+      ports:
+        - 4500:8080
+      environment:
+        - SWAGGER_JSON=/mnt/api.swagger.json
+      volumes:
+        - ./backend/proto:/mnt
