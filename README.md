@@ -2,21 +2,18 @@
 
 **THIS IS STILL IN DEVELOPMENT AND IN A VERY ROUGH STATE.**
 
-Web app that utilizes mySQL, google maps, golang gRPC, and angular to save, explore, and map camp sites.
+Web app that utilizes mySQL, google maps, golang, and angular to save, explore, and map camp sites.
 
 ### Requirements
-* go
-* Docker
-* MySQL 8.0
 * Docker Compose
-* protoc
-* npm
 
 ### Local Dev
 * `docker-compose up -d` to start containers
+    * Web changes will compile automatically on save
+    * API changes require running `docker-compose restart camping-api`
 
 ### Containers
-* api
+* camping-api
 * database
 * angular app
   * Navigate to `0.0.0.0:4200`
