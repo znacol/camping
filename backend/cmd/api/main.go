@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/znacol/camping/backend"
+	"github.com/znacol/camping/backend/api"
 	"github.com/znacol/camping/backend/db"
 	pb "github.com/znacol/camping/backend/proto"
 )
@@ -39,7 +39,7 @@ func runGRPC(lis net.Listener) {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	campingServer := backend.New(db)
+	campingServer := api.New(db)
 
 	pb.RegisterCampingServiceServer(grpcServer, campingServer)
 
@@ -58,7 +58,7 @@ func preflightHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // TODO cleanup + secure
-// allowCORS allows Cross Origin Resource Sharing from any origin.
+// allowCORS allows Cross Origin Resource Sharing from any origin
 func allowCORS(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if origin := r.Header.Get("Origin"); origin != "" {

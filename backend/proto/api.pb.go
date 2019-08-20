@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -912,6 +914,32 @@ type CampingServiceServer interface {
 	GetAllDistricts(context.Context, *GetAllDistrictsRequest) (*GetAllDistrictsResponse, error)
 	CreateSite(context.Context, *CreateSiteRequest) (*CreateSiteResponse, error)
 	CreateNationalForest(context.Context, *CreateNationalForestRequest) (*CreateNationalForestResponse, error)
+}
+
+// UnimplementedCampingServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedCampingServiceServer struct {
+}
+
+func (*UnimplementedCampingServiceServer) GetAllSites(ctx context.Context, req *GetAllSitesRequest) (*GetAllSitesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllSites not implemented")
+}
+func (*UnimplementedCampingServiceServer) GetNationalForest(ctx context.Context, req *GetNationalForestRequest) (*GetNationalForestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNationalForest not implemented")
+}
+func (*UnimplementedCampingServiceServer) GetDistrict(ctx context.Context, req *GetDistrictRequest) (*GetDistrictResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDistrict not implemented")
+}
+func (*UnimplementedCampingServiceServer) GetAllNationalForests(ctx context.Context, req *GetAllNationalForestsRequest) (*GetAllNationalForestsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllNationalForests not implemented")
+}
+func (*UnimplementedCampingServiceServer) GetAllDistricts(ctx context.Context, req *GetAllDistrictsRequest) (*GetAllDistrictsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllDistricts not implemented")
+}
+func (*UnimplementedCampingServiceServer) CreateSite(ctx context.Context, req *CreateSiteRequest) (*CreateSiteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSite not implemented")
+}
+func (*UnimplementedCampingServiceServer) CreateNationalForest(ctx context.Context, req *CreateNationalForestRequest) (*CreateNationalForestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateNationalForest not implemented")
 }
 
 func RegisterCampingServiceServer(s *grpc.Server, srv CampingServiceServer) {

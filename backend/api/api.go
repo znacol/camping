@@ -1,4 +1,4 @@
-package backend
+package api
 
 import (
 	"github.com/znacol/camping/backend/db"

@@ -13,6 +13,7 @@ import { site } from './site';
 })
 
 export class AppComponent implements OnInit {
+  // TODO handle multiple map types
   mapType = 'roadmap';
   sites: site[] = [];
   selectedSite: site;
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch all sites
+    // TODO create API service
     this.http.get('http://localhost:8000/v1/camping/sites', {
       })
         .subscribe(
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
             this.onSitesLoaded(results);
           },
           err => {
-            console.log(err, 'Error occured');
+            console.log(err, 'Error occurred');
           }
         );
   }
@@ -45,7 +47,6 @@ export class AppComponent implements OnInit {
     this.selectedSite = this.sites.find(i => i.id === id);
     // TODO fix logic...
     this.newSite = undefined;
-
   }
 
   public siteClicked = (event) => {

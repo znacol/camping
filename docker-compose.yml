@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  # golang gRPC + HTTP Server
+    # golang gRPC + HTTP Server
     camping-api:
       container_name: camping-api
       hostname: camping-api
@@ -15,8 +15,6 @@ services:
         - "8000"
         - "50052"
         - "8001"
-        # - "8080" # Web port is ignored in dev, in favor of a live-reloading angular container
-        - "6060"
       volumes:
         - ".:/go/src/github.com/znacol/camping:ro"
       environment:
@@ -27,7 +25,7 @@ services:
     # mySQL database
     db:
       image: mysql:8.0
-      container_name: camping-db.app
+      container_name: camping-db
       restart: always
       ports:
         - 5302:3306
@@ -42,7 +40,7 @@ services:
     web:
       build:
         context: ./web
-      container_name: camping-web.app
+      container_name: camping-web
       restart: always
       ports:
         - 4200:8080
