@@ -43,7 +43,7 @@ service CampingService {
 
     rpc CreateNationalForest(CreateNationalForestRequest) returns (CreateNationalForestResponse) {
             option (google.api.http) = {
-              post: "/v1/camping/forest",
+              post: "/v1/camping/forest"
               body: "forest"
             };
           }
@@ -72,9 +72,7 @@ message District {
   string map_location = 4;
 }
 
-// GetAllSitesRequest is currently empty
-message GetAllSitesRequest {
-}
+message GetAllSitesRequest { }
 
 // GetAllSitesResponse contains information regarding a camp site
 message GetAllSitesResponse {
@@ -97,15 +95,13 @@ message GetDistrictResponse {
   District district = 1;
 }
 
-message GetAllNationalForestsRequest {
-}
+message GetAllNationalForestsRequest { }
 
 message GetAllNationalForestsResponse {
   repeated NationalForest forests = 1;
 }
 
-message GetAllDistrictsRequest {
-}
+message GetAllDistrictsRequest { }
 
 message GetAllDistrictsResponse {
   repeated District districts = 1;
@@ -116,15 +112,11 @@ message CreateSiteRequest {
   Site site = 1;
 }
 
-// CreateSiteResponse is currently empty
-message CreateSiteResponse {
-}
+message CreateSiteResponse { }
 
 // CreateNationalForestRequest contains information necessary to create a new national forest
 message CreateNationalForestRequest {
   NationalForest forest = 1;
 }
 
-// CreateNationalForestResponse is currently empty
-message CreateNationalForestResponse {
-}
+message CreateNationalForestResponse { }

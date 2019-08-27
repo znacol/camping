@@ -230,7 +230,6 @@ func (m *District) GetMapLocation() string {
 	return ""
 }
 
-// GetAllSitesRequest is currently empty
 type GetAllSitesRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -638,7 +637,6 @@ func (m *CreateSiteRequest) GetSite() *Site {
 	return nil
 }
 
-// CreateSiteResponse is currently empty
 type CreateSiteResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -710,7 +708,6 @@ func (m *CreateNationalForestRequest) GetForest() *NationalForest {
 	return nil
 }
 
-// CreateNationalForestResponse is currently empty
 type CreateNationalForestResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

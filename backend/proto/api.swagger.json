@@ -168,12 +168,10 @@
   },
   "definitions": {
     "campingCreateNationalForestResponse": {
-      "type": "object",
-      "title": "CreateNationalForestResponse is currently empty"
+      "type": "object"
     },
     "campingCreateSiteResponse": {
-      "type": "object",
-      "title": "CreateSiteResponse is currently empty"
+      "type": "object"
     },
     "campingDistrict": {
       "type": "object",
