@@ -2,8 +2,9 @@
 github.com/DavidHuie/gomigrate
 # github.com/fsnotify/fsnotify v1.4.7
 github.com/fsnotify/fsnotify
-# github.com/go-sql-driver/mysql v1.4.1
-github.com/go-sql-driver/mysql
+# github.com/go-chi/chi v4.0.2+incompatible
+github.com/go-chi/chi
+github.com/go-chi/chi/middleware
 # github.com/golang/protobuf v1.3.1
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/jsonpb
@@ -41,6 +42,9 @@ github.com/jmoiron/sqlx/reflectx
 github.com/kelseyhightower/envconfig
 # github.com/konsorten/go-windows-terminal-sequences v1.0.1
 github.com/konsorten/go-windows-terminal-sequences
+# github.com/lib/pq v1.0.0
+github.com/lib/pq
+github.com/lib/pq/oid
 # github.com/magiconair/properties v1.8.0
 github.com/magiconair/properties
 # github.com/mitchellh/go-homedir v1.1.0
@@ -51,6 +55,8 @@ github.com/mitchellh/mapstructure
 github.com/pelletier/go-toml
 # github.com/pkg/errors v0.8.1
 github.com/pkg/errors
+# github.com/rs/cors v1.7.0
+github.com/rs/cors
 # github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
 # github.com/spf13/afero v1.1.2
@@ -68,21 +74,20 @@ github.com/spf13/pflag
 github.com/spf13/viper
 # golang.org/x/net v0.0.0-20190620200207-3b0461eec859
 golang.org/x/net/context
+golang.org/x/net/http2
+golang.org/x/net/http2/h2c
+golang.org/x/net/http/httpguts
+golang.org/x/net/http2/hpack
+golang.org/x/net/idna
 golang.org/x/net/trace
 golang.org/x/net/internal/timeseries
-golang.org/x/net/http2
-golang.org/x/net/http2/hpack
-golang.org/x/net/http/httpguts
-golang.org/x/net/idna
 # golang.org/x/sys v0.0.0-20190422165155-953cdadca894
 golang.org/x/sys/unix
 # golang.org/x/text v0.3.0
-golang.org/x/text/transform
-golang.org/x/text/unicode/norm
 golang.org/x/text/secure/bidirule
 golang.org/x/text/unicode/bidi
-# google.golang.org/appengine v1.4.0
-google.golang.org/appengine/cloudsql
+golang.org/x/text/unicode/norm
+golang.org/x/text/transform
 # google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
@@ -90,6 +95,9 @@ google.golang.org/genproto/protobuf/field_mask
 google.golang.org/genproto/googleapis/rpc/status
 # google.golang.org/grpc v1.21.1
 google.golang.org/grpc
+google.golang.org/grpc/encoding/gzip
+google.golang.org/grpc/keepalive
+google.golang.org/grpc/reflection
 google.golang.org/grpc/grpclog
 google.golang.org/grpc/codes
 google.golang.org/grpc/status
@@ -109,7 +117,6 @@ google.golang.org/grpc/internal/envconfig
 google.golang.org/grpc/internal/grpcrand
 google.golang.org/grpc/internal/grpcsync
 google.golang.org/grpc/internal/transport
-google.golang.org/grpc/keepalive
 google.golang.org/grpc/naming
 google.golang.org/grpc/peer
 google.golang.org/grpc/resolver
@@ -117,6 +124,7 @@ google.golang.org/grpc/resolver/dns
 google.golang.org/grpc/resolver/passthrough
 google.golang.org/grpc/stats
 google.golang.org/grpc/tap
+google.golang.org/grpc/reflection/grpc_reflection_v1alpha
 google.golang.org/grpc/balancer/base
 google.golang.org/grpc/credentials/internal
 google.golang.org/grpc/binarylog/grpc_binarylog_v1

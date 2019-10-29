@@ -12,32 +12,44 @@ services:
         - "CGO_ENABLED=0 go build -a -o /go/bin/api github.com/znacol/camping/backend/cmd/api && /go/bin/api"
       ports:
         - "50051"
-        - "8000"
+        - "8000:8000"
         - "50052"
-        - "8001"
+        - "8081"
       volumes:
         - ".:/go/src/github.com/znacol/camping:ro"
       environment:
         - server_env=dev
       depends_on:
-        - db
+        - camping-db-preload
 
     # mySQL database
-    db:
-      image: mysql:8.0
+    camping-db:
+      image: postgres:11.4
       container_name: camping-db
       restart: always
       ports:
-        - 5302:3306
-      volumes:
-        # Run schema updates
-        - ./backend/db/schema:/docker-entrypoint-initdb.d
+        - "5432:5432"
       environment:
-        - MYSQL_DATABASE=camping
-        - MYSQL_ROOT_PASSWORD=password
+        - POSTGRES_DB=camping
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=password
+
+    # Run DB schema migrations and insert dev data
+    camping-db-preload:
+      container_name: camping-db-preload
+      image: golang:1.12.9-buster
+      entrypoint: /bin/sh
+      command:
+        - "/go/src/github.com/znacol/camping/docker/db_preload/db-preload.sh"
+      volumes:
+        - ".:/go/src/github.com/znacol/camping:ro"
+      depends_on:
+        - camping-db
+      links:
+        - camping-db
 
     # Angular app
-    web:
+    camping-web:
       build:
         context: ./web
       container_name: camping-web

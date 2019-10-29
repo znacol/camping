@@ -2,7 +2,7 @@
 
 **THIS IS STILL IN DEVELOPMENT AND IN A VERY ROUGH STATE.**
 
-Web app that utilizes mySQL, google maps, golang, and angular to save, explore, and map camp sites.
+Web app that utilizes postgres, google maps, golang, and angular to save, explore, and map camp sites.
 
 ### Requirements
 * Docker Compose
@@ -21,7 +21,7 @@ Web app that utilizes mySQL, google maps, golang, and angular to save, explore, 
   * Navigate to `localhost:4500`
 
 ### Scripts
-* `compile-proto.sh` generates all necessary proto files and swagger docs
+* `./scripts/compile-proto.sh` generates all necessary proto files and swagger docs
 * `compodoc -p tsconfig.json -r 4600 -s` generate angular documentation and serve
   * Navigate to `localhost:4600` to view
 

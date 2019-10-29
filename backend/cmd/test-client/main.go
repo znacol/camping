@@ -14,7 +14,7 @@ func main() {
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 	}
-	conn, err := grpc.Dial("localhost:30251", opts...)
+	conn, err := grpc.Dial("localhost:8081", opts...)
 	if err != nil {
 		grpclog.Fatalf("failed to dial: %v", err)
 	}

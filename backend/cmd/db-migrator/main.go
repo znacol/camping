@@ -10,10 +10,10 @@ import (
 type envConfig struct {
 	DbUser           string `default:"root" split_words:"true"`
 	DbPassword       string `default:"password" split_words:"true"`
-	DbHost           string `default:"db" split_words:"true"`
-	DbPort           string `default:"3306" split_words:"true"`
+	DbHost           string `default:"camping-db" split_words:"true"`
+	DbPort           string `default:"5432" split_words:"true"`
 	DbName           string `default:"camping" split_words:"true"`
-	DbMigrationsPath string `default:"/go/src/github.com/znacol/camping/backend/database/migrations" split_words:"true"`
+	DbMigrationsPath string `default:"/go/src/github.com/znacol/camping/backend/db/migrations" split_words:"true"`
 }
 
 func main() {
