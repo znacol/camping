@@ -143,13 +143,13 @@ func startRestGateway(ctx context.Context, apiHandler *api.Service, shutdownWG *
 	// Register GRPC Gateway with GRPC Server
 	gatewayCtx, gatewayCancelFunc := context.WithCancel(context.Background())
 	if err := pb.RegisterCampingServiceHandlerFromEndpoint(gatewayCtx, gwMux, env.GrpcAddress, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		log.WithError(err).Fatal("Unable to register seeds gateway with grpc server")
+		log.WithError(err).Fatal("Unable to register camping gateway with grpc server")
 	}
 
 	// Create router
 	router, err := api.CreateRouter(apiHandler, gwMux.ServeHTTP)
 	if err != nil {
-		log.WithError(err).Fatal("Unable to create seeds router")
+		log.WithError(err).Fatal("Unable to create camping router")
 	}
 
 	// Create and run HTTP REST Server
@@ -163,11 +163,11 @@ func startRestGateway(ctx context.Context, apiHandler *api.Service, shutdownWG *
 		Handler: h2c.NewHandler(router, &http2.Server{}),
 	}
 	go func() {
-		log.Info("Starting Seeds API REST...")
+		log.Info("Starting Camping API REST...")
 		if serveErr := httpRestServer.ListenAndServe(); serveErr != nil && serveErr != http.ErrServerClosed {
-			log.WithError(serveErr).Fatal("Unable to start seeds api rest")
+			log.WithError(serveErr).Fatal("Unable to start camping api rest")
 		}
-		log.Debug("Seeds API REST server closed")
+		log.Debug("Camping API REST server closed")
 	}()
 
 	// Wait for shutdown signal
@@ -180,7 +180,7 @@ func startRestGateway(ctx context.Context, apiHandler *api.Service, shutdownWG *
 		log.WithError(shutdownErr).Warn("Unable to gracefully handle all http rest connections")
 	}
 	gatewayCancelFunc()
-	log.Debug("Seeds API REST server shutdown")
+	log.Debug("Camping API REST server shutdown")
 }
 
 
