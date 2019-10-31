@@ -11,16 +11,20 @@ services:
         - "-cexu"
         - "CGO_ENABLED=0 go build -a -o /go/bin/api github.com/znacol/camping/backend/cmd/api && /go/bin/api"
       ports:
-        - "50051"
-        - "8000"
-        - "50052"
-        - "8081"
+        - "50051" # gRPC
+        - "8000" # HTTP
       volumes:
         - ".:/go/src/github.com/znacol/camping:ro"
       environment:
         - server_env=dev
       depends_on:
         - camping-db-preload
+      labels:
+          - traefik.docker.network=camping
+          - traefik.api.frontend.rule=PathPrefix:/v1/camping;Host:camping.api.localhost
+          - traefik.api.port=8000
+      networks:
+        - camping
 
     # mySQL database
     camping-db:
@@ -28,11 +32,13 @@ services:
       container_name: camping-db
       restart: always
       ports:
-        - "5432"
+        - "5432:5432"
       environment:
         - POSTGRES_DB=camping
         - POSTGRES_USER=root
         - POSTGRES_PASSWORD=password
+      networks:
+        - camping
 
     # Run DB schema migrations and insert dev data
     camping-db-preload:
@@ -45,8 +51,8 @@ services:
         - ".:/go/src/github.com/znacol/camping:ro"
       depends_on:
         - camping-db
-      links:
-        - camping-db
+      networks:
+        - camping
 
     # Angular app
     camping-web:
@@ -55,11 +61,17 @@ services:
       container_name: camping-web
       restart: always
       ports:
-        - 4200:8080
-      links:
-        - camping-api
+            - "8080"
+      environment:
+        - VIRTUAL_HOST=camping.app.*
       volumes:
-        - ./web/src:/web/src
+        - "./web/src:/web/src:ro"
+      labels:
+        - traefik.docker.network=camping
+        - traefik.frontend.rule=Host:camping.app.localhost
+        - traefik.port=8080
+      networks:
+        - camping
 
     # API docs
     swagger:
@@ -72,3 +84,26 @@ services:
         - SWAGGER_JSON=/mnt/api.swagger.json
       volumes:
         - ./backend/proto:/mnt
+
+    # Traefik proxy
+    reverse-proxy:
+      image: traefik:v1.7.16 # The official Traefik docker image
+      command: --api --docker # Enables the web UI and tells Traefik to listen to docker
+      ports:
+        - "80:80"     # The HTTP port
+        - "8080:8080" # The Web UI (enabled by --api)
+        - "443:443"   # SSL
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      labels:
+        - traefik.frontend.rule=Host:traefik.localhost
+        - traefik.port=8080
+      networks:
+        - camping
+      restart: always
+
+networks:
+  camping:
+    name: camping
+
+

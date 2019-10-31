@@ -17,7 +17,7 @@ export class DetailsComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // Fetch national forest and district info
-    this.http.get('http://localhost:8000/v1/camping/forest/' + this.selectedSite.national_forest_id, {})
+    this.http.get('camping-api:8000/v1/camping/forest/' + this.selectedSite.national_forest_id, {})
         .subscribe(
           results => {
             this.nationalForest = results;
@@ -27,14 +27,14 @@ export class DetailsComponent implements OnInit, OnChanges {
           }
         );
 
-    this.http.get('http://localhost:8000/v1/camping/district/' + this.selectedSite.district_id, {})
+    this.http.get('camping-api:8000/v1/camping/district/' + this.selectedSite.district_id, {})
         // .pipe(finalize(() => this.dataLoaded = true))
         .subscribe(
           results => {
             this.district = results;
           },
           err => {
-            console.log('Error occured');
+            console.log('Error occurred');
           }
         );
 

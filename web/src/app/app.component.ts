@@ -3,6 +3,7 @@ import {
   OnInit
  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from './services/api.service';
 
 import { site } from './site';
 
@@ -19,12 +20,12 @@ export class AppComponent implements OnInit {
   selectedSite: site;
   newSite: site;
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: ApiService, private http: HttpClient) {}
 
   ngOnInit(): void {
     // Fetch all sites
     // TODO create API service
-    this.http.get('http://localhost:8000/v1/camping/sites', {
+    this.http.get('//camping.api.localhost/v1/camping/sites', {
       })
         .subscribe(
           results => {
@@ -34,25 +35,34 @@ export class AppComponent implements OnInit {
             console.log(err, 'Error occurred');
           }
         );
+
+    // this.apiService
+    //   .getAllSites()
+    //   .subscribe(
+    //     results => this.onSitesLoaded(results),
+    //     err => console.log(err, 'Error loading sites')
+    //   );
+    //
   }
 
-  public onSitesLoaded = (results: any) => {
+  onSitesLoaded = (results: any) => {
+    console.log(results);
     for (const result of results.sites) {
       this.sites.push(result);
     }
-  }
+  };
 
-  public markerSelected = (id: number) => {
+  markerSelected = (id: number) => {
     // Get site info from ID
     this.selectedSite = this.sites.find(i => i.id === id);
     // TODO fix logic...
     this.newSite = undefined;
-  }
+  };
 
-  public siteClicked = (event) => {
+  siteClicked = (event) => {
     this.newSite = event.coords;
     // TODO fix logic...
     this.selectedSite = undefined;
-  }
+  };
 
 }
