@@ -9,23 +9,26 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/jmoiron/sqlx/reflectx"
 	_ "github.com/lib/pq" // Postgres driver
-
+	pb "github.com/znacol/camping/backend/proto"
 )
+
+// API is the interface that the DB struct fulfills, with the methods to interact with DB.
+// It exists to allow mocking of this package.
+type API interface {
+	GetSites(ctx context.Context) ([]*pb.Site, error)
+	GetNationalForest(ctx context.Context, id int64) (NationalForest, error)
+	GetAllNationalForests(ctx context.Context) ([]NationalForest, error)
+	GetDistrict(ctx context.Context, id int64) (District, error)
+	GetAllDistricts(ctx context.Context) ([]District, error)
+	CreateSite(ctx context.Context, latitude float32, longitude float32, nationalForestID int64, districtID int64, altitude int64, notes string) error
+}
 
 type DB struct {
 	dbClient *sqlx.DB
 }
 
-// Site represents a single campsite
-type Site struct {
-	ID               int64          `db:"id" json:"id"`
-	Latitude         float64        `db:"latitude" json:"latitude"`
-	Longitude        float64        `db:"longitude" json:"longitude"`
-	NationalForestID int64          `db:"national_forest_id" json:"national_forest_id"`
-	DistrictID       int64          `db:"district_id" json:"district_id"`
-	Altitude         int64          `db:"altitude" json:"altitude"`
-	Notes            sql.NullString `db:"notes" json:"notes"`
-}
+// Ensure DB is an db API
+var _ API = &DB{}
 
 type NationalForest struct {
 	ID      int64          `db:"id" json:"id"`
@@ -110,86 +113,4 @@ func (d *DB) Migrate(migrateDir string) error {
 // Close permanently closes the database connection
 func (d *DB) Close() error {
 	return d.dbClient.Close()
-}
-
-
-// GetSites returns all campsites
-func (d *DB) GetSites(ctx context.Context) ([]Site, error) {
-	list := []Site{}
-	err := d.dbClient.SelectContext(ctx, &list, `
-		SELECT *
-		FROM site
-	`)
-
-	return list, err
-}
-
-// GetNationalForest retrieves a forest given an ID
-func (d *DB) GetNationalForest(ctx context.Context, id int64) (NationalForest, error) {
-	nf := NationalForest{}
-	err := d.dbClient.GetContext(ctx, &nf, `
-		SELECT *
-		FROM national_forest
-		WHERE id = ?`,
-		id,
-	)
-
-	return nf, err
-}
-
-// GetAllNationalForests retrieves all national forests
-func (d *DB) GetAllNationalForests(ctx context.Context) ([]NationalForest, error) {
-	nf := []NationalForest{}
-	err := d.dbClient.SelectContext(ctx, &nf, `
-		SELECT *
-		FROM national_forest`,
-	)
-
-	return nf, err
-}
-
-// GetDistrict retrieves a district given an ID
-func (d *DB) GetDistrict(ctx context.Context, id int64) (District, error) {
-	district := District{}
-	err := d.dbClient.GetContext(ctx, &district, `
-		SELECT *
-		FROM district
-		WHERE id = ?`,
-		id,
-	)
-
-	return district, err
-}
-
-// GetAllDistricts retrieves all districts
-func (d *DB) GetAllDistricts(ctx context.Context) ([]District, error) {
-	districts := []District{}
-	err := d.dbClient.SelectContext(ctx, &districts, `
-		SELECT *
-		FROM district`,
-	)
-
-	return districts, err
-}
-
-// CreateSite saves a new site
-func (d *DB) CreateSite(ctx context.Context, latitude float32, longitude float32, nationalForestID int64, districtID int64, altitude int64, notes string) error {
-	_, err := d.dbClient.ExecContext(ctx, `
-		INSERT INTO site
-			SET
-			latitude = ?,
-			longitude = ?,
-			national_forest_id = ?,
-			district_id = ?,
-			altitude = ?,
-			notes = ?
-	`,
-		latitude,
-		longitude,
-		nationalForestID,
-		districtID,
-		altitude,
-		notes)
-
-	return err
 }

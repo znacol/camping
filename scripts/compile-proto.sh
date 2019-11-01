@@ -18,3 +18,7 @@ protoc -I/usr/local/include -I. \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --swagger_out=logtostderr=true:. \
   backend/proto/api.proto
+
+ # Generate database mocks
+ rm -rf backend/db/mock_db
+ mockgen --destination=backend/db/mock_db/mock_db.go --source=backend/db/db.go

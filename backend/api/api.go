@@ -12,14 +12,14 @@ import (
 	"strings"
 )
 
-var _ pb.CampingServiceServer = &Service{}
+var _ pb.CampingServiceServer = &API{}
 
-type Service struct {
-	dbClient *db.DB
+type API struct {
+	dbClient db.API
 }
 
-func New(db *db.DB) *Service {
-	return &Service{
+func New(db *db.DB) *API {
+	return &API{
 		dbClient: db,
 	}
 }

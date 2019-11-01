@@ -94,7 +94,7 @@ func main() {
 
 // startGrpcServer configures then starts up the API GRPC Server in a new goroutine,
 // then waits for the context to be done before gracefully terminating the server.
-func startGrpcServer(ctx context.Context, apiHandler *api.Service, shutdownWG *sync.WaitGroup) {
+func startGrpcServer(ctx context.Context, apiHandler *api.API, shutdownWG *sync.WaitGroup) {
 		defer shutdownWG.Done()
 	log := log.WithField("address", env.GrpcAddress)
 
@@ -134,7 +134,7 @@ func startGrpcServer(ctx context.Context, apiHandler *api.Service, shutdownWG *s
 
 // startRestGateway configures then starts up the API HTTP REST->GRPC Gateway Server in a new goroutine,
 // then waits for the context to be done before gracefully terminating the server.
-func startRestGateway(ctx context.Context, apiHandler *api.Service, shutdownWG *sync.WaitGroup) {
+func startRestGateway(ctx context.Context, apiHandler *api.API, shutdownWG *sync.WaitGroup) {
 	defer shutdownWG.Done()
 
 	// Create GRPC Gateway Router/Mux

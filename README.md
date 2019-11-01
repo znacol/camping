@@ -11,14 +11,7 @@ Web app that utilizes postgres, google maps, golang, and angular to save, explor
 * `docker-compose up -d` to start containers
     * Web changes will compile automatically on save
     * API changes require running `docker-compose restart camping-api`
-
-### Containers
-* camping-api
-* database
-* angular app
-  * Navigate to `camping.app.localhost`
-* swagger (API) docs
-  * Navigate to `localhost:4500`
+ * Navigate to `camping.app.localhost`
 
 ### Scripts
 * `./scripts/compile-proto.sh` generates all necessary proto files and swagger docs

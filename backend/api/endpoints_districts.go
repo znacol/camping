@@ -8,7 +8,7 @@ import (
 )
 
 // GetDistrict retrieves a district given an id
-func (s *Service) GetDistrict(ctx context.Context, request *pb.GetDistrictRequest) (*pb.GetDistrictResponse, error) {
+func (s *API) GetDistrict(ctx context.Context, request *pb.GetDistrictRequest) (*pb.GetDistrictResponse, error) {
 	forest, err := s.dbClient.GetDistrict(ctx, request.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching district")
@@ -27,7 +27,7 @@ func (s *Service) GetDistrict(ctx context.Context, request *pb.GetDistrictReques
 }
 
 // GetAllDistricts retrieves all districts
-func (s *Service) GetAllDistricts(ctx context.Context, request *pb.GetAllDistrictsRequest) (*pb.GetAllDistrictsResponse, error) {
+func (s *API) GetAllDistricts(ctx context.Context, request *pb.GetAllDistrictsRequest) (*pb.GetAllDistrictsResponse, error) {
 	districts, err := s.dbClient.GetAllDistricts(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching districts")

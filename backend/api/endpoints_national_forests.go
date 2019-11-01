@@ -8,7 +8,7 @@ import (
 )
 
 // GetNationalForest retrieves a forest given an id
-func (s *Service) GetNationalForest(ctx context.Context, request *pb.GetNationalForestRequest) (*pb.GetNationalForestResponse, error) {
+func (s *API) GetNationalForest(ctx context.Context, request *pb.GetNationalForestRequest) (*pb.GetNationalForestResponse, error) {
 	forest, err := s.dbClient.GetNationalForest(ctx, request.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching national forest")
@@ -26,14 +26,14 @@ func (s *Service) GetNationalForest(ctx context.Context, request *pb.GetNational
 }
 
 // CreateNationalForest creates a new national forest in the database
-func (s *Service) CreateNationalForest(ctx context.Context, request *pb.CreateNationalForestRequest) (response *pb.CreateNationalForestResponse, err error) {
+func (s *API) CreateNationalForest(ctx context.Context, request *pb.CreateNationalForestRequest) (response *pb.CreateNationalForestResponse, err error) {
 	// TODO write query to save forest
 
 	return response, nil
 }
 
 // GetAllNationalForests retrieves all national forests
-func (s *Service) GetAllNationalForests(ctx context.Context, request *pb.GetAllNationalForestsRequest) (*pb.GetAllNationalForestsResponse, error) {
+func (s *API) GetAllNationalForests(ctx context.Context, request *pb.GetAllNationalForestsRequest) (*pb.GetAllNationalForestsResponse, error) {
 	forests, err := s.dbClient.GetAllNationalForests(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetching national forest")
