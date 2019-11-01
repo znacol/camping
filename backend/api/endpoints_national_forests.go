@@ -15,11 +15,7 @@ func (s *API) GetNationalForest(ctx context.Context, request *pb.GetNationalFore
 	}
 
 	response := &pb.GetNationalForestResponse{
-		Forest: &pb.NationalForest{
-			Id:      forest.ID,
-			Name:    forest.Name,
-			Website: forest.Website.String,
-		},
+		Forest: forest,
 	}
 
 	return response, nil
@@ -32,6 +28,7 @@ func (s *API) CreateNationalForest(ctx context.Context, request *pb.CreateNation
 	return response, nil
 }
 
+// TODO combine with singular get; utlilize query builder
 // GetAllNationalForests retrieves all national forests
 func (s *API) GetAllNationalForests(ctx context.Context, request *pb.GetAllNationalForestsRequest) (*pb.GetAllNationalForestsResponse, error) {
 	forests, err := s.dbClient.GetAllNationalForests(ctx)
@@ -39,19 +36,8 @@ func (s *API) GetAllNationalForests(ctx context.Context, request *pb.GetAllNatio
 		return nil, errors.Wrap(err, "fetching national forest")
 	}
 
-	locs := make([]*pb.NationalForest, 0, len(forests))
-	for _, f := range forests {
-		forest := &pb.NationalForest{
-			Id:      f.ID,
-			Name:    f.Name,
-			Website: f.Website.String,
-		}
-
-		locs = append(locs, forest)
-	}
-
 	response := &pb.GetAllNationalForestsResponse{
-		Forests: locs,
+		Forests: forests,
 	}
 
 	return response, nil

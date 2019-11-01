@@ -7,7 +7,6 @@ package mock_db
 import (
 	context "context"
 	gomock "github.com/golang/mock/gomock"
-	db "github.com/znacol/camping/backend/db"
 	proto "github.com/znacol/camping/backend/proto"
 	reflect "reflect"
 )
@@ -51,10 +50,10 @@ func (mr *MockAPIMockRecorder) GetSites(ctx interface{}) *gomock.Call {
 }
 
 // GetNationalForest mocks base method
-func (m *MockAPI) GetNationalForest(ctx context.Context, id int64) (db.NationalForest, error) {
+func (m *MockAPI) GetNationalForest(ctx context.Context, id int64) (*proto.NationalForest, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetNationalForest", ctx, id)
-	ret0, _ := ret[0].(db.NationalForest)
+	ret0, _ := ret[0].(*proto.NationalForest)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -66,10 +65,10 @@ func (mr *MockAPIMockRecorder) GetNationalForest(ctx, id interface{}) *gomock.Ca
 }
 
 // GetAllNationalForests mocks base method
-func (m *MockAPI) GetAllNationalForests(ctx context.Context) ([]db.NationalForest, error) {
+func (m *MockAPI) GetAllNationalForests(ctx context.Context) ([]*proto.NationalForest, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetAllNationalForests", ctx)
-	ret0, _ := ret[0].([]db.NationalForest)
+	ret0, _ := ret[0].([]*proto.NationalForest)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -81,10 +80,10 @@ func (mr *MockAPIMockRecorder) GetAllNationalForests(ctx interface{}) *gomock.Ca
 }
 
 // GetDistrict mocks base method
-func (m *MockAPI) GetDistrict(ctx context.Context, id int64) (db.District, error) {
+func (m *MockAPI) GetDistrict(ctx context.Context, id int64) (*proto.District, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetDistrict", ctx, id)
-	ret0, _ := ret[0].(db.District)
+	ret0, _ := ret[0].(*proto.District)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -96,10 +95,10 @@ func (mr *MockAPIMockRecorder) GetDistrict(ctx, id interface{}) *gomock.Call {
 }
 
 // GetAllDistricts mocks base method
-func (m *MockAPI) GetAllDistricts(ctx context.Context) ([]db.District, error) {
+func (m *MockAPI) GetAllDistricts(ctx context.Context) ([]*proto.District, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetAllDistricts", ctx)
-	ret0, _ := ret[0].([]db.District)
+	ret0, _ := ret[0].([]*proto.District)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

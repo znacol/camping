@@ -16,10 +16,10 @@ import (
 // It exists to allow mocking of this package.
 type API interface {
 	GetSites(ctx context.Context) ([]*pb.Site, error)
-	GetNationalForest(ctx context.Context, id int64) (NationalForest, error)
-	GetAllNationalForests(ctx context.Context) ([]NationalForest, error)
-	GetDistrict(ctx context.Context, id int64) (District, error)
-	GetAllDistricts(ctx context.Context) ([]District, error)
+	GetNationalForest(ctx context.Context, id int64) (*pb.NationalForest, error)
+	GetAllNationalForests(ctx context.Context) ([]*pb.NationalForest, error)
+	GetDistrict(ctx context.Context, id int64) (*pb.District, error)
+	GetAllDistricts(ctx context.Context) ([]*pb.District, error)
 	CreateSite(ctx context.Context, latitude float32, longitude float32, nationalForestID int64, districtID int64, altitude int64, notes string) error
 }
 
@@ -29,20 +29,6 @@ type DB struct {
 
 // Ensure DB is an db API
 var _ API = &DB{}
-
-type NationalForest struct {
-	ID      int64          `db:"id" json:"id"`
-	Name    string         `db:"name" json:"name"`
-	Website sql.NullString `db:"website" json:"website"`
-}
-
-type District struct {
-	ID               int64          `db:"id" json:"id"`
-	NationalForestID int64          `db:"national_forest_id" json:"national_forest_id"`
-	Name             string         `db:"name" json:"name"`
-	MapLocation      sql.NullString `db:"map_location" json:"map_location"`
-}
-
 
 // New returns an instantiated DB or an error if the database
 // connection parameters don't work or it can not connect.

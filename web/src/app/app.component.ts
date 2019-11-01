@@ -25,8 +25,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // Fetch all sites
     // TODO create API service
-    this.http.get('//camping.api.localhost/v1/camping/sites', {
-      })
+    this.http.get('//camping.api.localhost/v1/camping/sites', {})
         .subscribe(
           results => {
             this.onSitesLoaded(results);
@@ -46,7 +45,6 @@ export class AppComponent implements OnInit {
   }
 
   onSitesLoaded = (results: any) => {
-    console.log(results);
     for (const result of results.sites) {
       this.sites.push(result);
     }

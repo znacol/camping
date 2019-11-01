@@ -189,6 +189,9 @@
         },
         "map_location": {
           "type": "string"
+        },
+        "created_at": {
+          "type": "string"
         }
       }
     },
@@ -254,6 +257,9 @@
         },
         "website": {
           "type": "string"
+        },
+        "created_at": {
+          "type": "string"
         }
       }
     },
@@ -285,6 +291,9 @@
           "format": "int64"
         },
         "notes": {
+          "type": "string"
+        },
+        "created_at": {
           "type": "string"
         }
       }

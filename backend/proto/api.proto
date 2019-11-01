@@ -57,12 +57,14 @@ message Site {
   int64 district_id = 5;
   int64 altitude = 6;
   string notes = 7;
+  string created_at = 8;
 }
 
 message NationalForest {
   int64 id = 1;
   string name = 2;
   string website = 3;
+  string created_at = 4;
 }
 
 message District {
@@ -70,6 +72,7 @@ message District {
   int64 national_forest_id = 2;
   string name = 3;
   string map_location = 4;
+  string created_at = 5;
 }
 
 message GetAllSitesRequest { }
