@@ -2,71 +2,75 @@ package db
 
 import (
 	"context"
+	"github.com/pkg/errors"
+	"log"
 
+	sq "github.com/Masterminds/squirrel"
 	pb "github.com/znacol/camping/backend/proto"
 )
 
 // GetSites returns all campsites
-func (d *DB) GetSites(ctx context.Context) ([]*pb.Site, error) {
+func (d *DB) SitesGet(ctx context.Context, id uint64) ([]*pb.Site, error) {
+	query := sq.StatementBuilder.PlaceholderFormat(sq.Dollar).Select("*").From("site")
+
+	if id > 0 {
+		query = query.Where("id = ?", id)
+	}
+
+	sql, args, err := query.ToSql()
+	if err != nil {
+		return nil, errors.WithMessage(err, "Unable to convert query to sql")
+	}
+
 	list := []*pb.Site{}
-	err := d.dbClient.SelectContext(ctx, &list, `
-		SELECT *
-		FROM site
-	`)
+	err = d.dbClient.SelectContext(ctx, &list, sql, args...)
 
 	return list, err
 }
 
-// GetNationalForest retrieves a forest given an ID
-func (d *DB) GetNationalForest(ctx context.Context, id int64) (*pb.NationalForest, error) {
-	nf := &pb.NationalForest{}
-	err := d.dbClient.GetContext(ctx, &nf, `
-		SELECT *
-		FROM national_forest
-		WHERE id = ?`,
-		id,
-	)
+// NationalForestsGet retrieves all national forests
+func (d *DB) NationalForestsGet(ctx context.Context, id uint64) ([]*pb.NationalForest, error) {
+	query := sq.StatementBuilder.PlaceholderFormat(sq.Dollar).Select("*").From("national_forest")
 
-	return nf, err
+	if id > 0 {
+		query = query.Where("id = ?", id)
+	}
+
+	sql, args, err := query.ToSql()
+	if err != nil {
+		return nil, errors.WithMessage(err, "Unable to convert query to sql")
+	}
+
+	list := []*pb.NationalForest{}
+	err = d.dbClient.SelectContext(ctx, &list, sql, args...)
+
+	return list, err
 }
 
-// GetAllNationalForests retrieves all national forests
-func (d *DB) GetAllNationalForests(ctx context.Context) ([]*pb.NationalForest, error) {
-	nf := []*pb.NationalForest{}
-	err := d.dbClient.SelectContext(ctx, &nf, `
-		SELECT *
-		FROM national_forest`,
-	)
+// DistrictsGet retrieves all districts
+func (d *DB) DistrictsGet(ctx context.Context, id uint64) ([]*pb.District, error) {
+	query := sq.StatementBuilder.PlaceholderFormat(sq.Dollar).Select("*").From("district")
 
-	return nf, err
-}
+	log.Printf("district", id)
 
-// GetDistrict retrieves a district given an ID
-func (d *DB) GetDistrict(ctx context.Context, id int64) (*pb.District, error) {
-	district := &pb.District{}
-	err := d.dbClient.GetContext(ctx, &district, `
-		SELECT *
-		FROM district
-		WHERE id = ?`,
-		id,
-	)
+	if id > 0 {
+		query = query.Where("id = ?", id)
+	}
 
-	return district, err
-}
+	sql, args, err := query.ToSql()
+	if err != nil {
+		return nil, errors.WithMessage(err, "Unable to convert query to sql")
+	}
 
-// GetAllDistricts retrieves all districts
-func (d *DB) GetAllDistricts(ctx context.Context) ([]*pb.District, error) {
-	districts := []*pb.District{}
-	err := d.dbClient.SelectContext(ctx, &districts, `
-		SELECT *
-		FROM district`,
-	)
+	list := []*pb.District{}
+	err = d.dbClient.SelectContext(ctx, &list, sql, args...)
 
-	return districts, err
+	return list, err
 }
 
 // CreateSite saves a new site
-func (d *DB) CreateSite(ctx context.Context, latitude float32, longitude float32, nationalForestID int64, districtID int64, altitude int64, notes string) error {
+// TODO: add upsert functionality
+func (d *DB) SiteUpsert(ctx context.Context, latitude float32, longitude float32, nationalForestID uint64, districtID uint64, altitude uint64, notes string) error {
 	_, err := d.dbClient.ExecContext(ctx, `
 		INSERT INTO site (latitude, longitude, national_forest_id, district_id, altitude, notes)
 			VALUES ($1, $2, $3, $4, $5, $6)

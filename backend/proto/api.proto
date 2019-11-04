@@ -4,122 +4,106 @@ import "google/api/annotations.proto";
 package camping;
 
 service CampingService {
-    rpc GetAllSites(GetAllSitesRequest) returns (GetAllSitesResponse) {
+    rpc SitesGet(SitesGetRequest) returns (SitesGetResponse) {
             option (google.api.http) = {
               get: "/v1/camping/sites"
+              additional_bindings {
+                get: "/v1/camping/sites/{id}"
+              }
             };
           }
 
-    rpc GetNationalForest(GetNationalForestRequest) returns (GetNationalForestResponse) {
-            option (google.api.http) = {
-              get: "/v1/camping/forest/{id}"
-            };
-          }
-
-    rpc GetDistrict(GetDistrictRequest) returns (GetDistrictResponse) {
-            option (google.api.http) = {
-              get: "/v1/camping/district/{id}"
-            };
-          }
-
-    rpc GetAllNationalForests(GetAllNationalForestsRequest) returns (GetAllNationalForestsResponse) {
-            option (google.api.http) = {
-              get: "/v1/camping/forests"
-            };
-          }
-
-    rpc GetAllDistricts(GetAllDistrictsRequest) returns (GetAllDistrictsResponse) {
-            option (google.api.http) = {
-              get: "/v1/camping/districts"
-            };
-          }
-
-    rpc CreateSite(CreateSiteRequest) returns (CreateSiteResponse) {
-            option (google.api.http) = {
+    rpc SiteUpsert(SiteUpsertRequest) returns (SiteUpsertResponse) {
+        option (google.api.http) = {
               post: "/v1/camping/site",
               body: "site"
             };
-          }
+    }
 
-    rpc CreateNationalForest(CreateNationalForestRequest) returns (CreateNationalForestResponse) {
+    rpc NationalForestsGet(NationalForestsGetRequest) returns (NationalForestsGetResponse) {
             option (google.api.http) = {
-              post: "/v1/camping/forest"
-              body: "forest"
+              get: "/v1/camping/forests"
+              additional_bindings {
+                get: "/v1/camping/forests/{id}"
+              }
             };
           }
+
+    rpc DistrictsGet(DistrictsGetRequest) returns (DistrictsGetResponse) {
+            option (google.api.http) = {
+              get: "/v1/camping/districts"
+              additional_bindings {
+                get: "/v1/camping/districts/{id}"
+              }
+            };
+          }
+//    rpc CreateNationalForest(CreateNationalForestRequest) returns (CreateNationalForestResponse) {
+//            option (google.api.http) = {
+//              post: "/v1/camping/forest"
+//              body: "forest"
+//            };
+//          }
 }
 
 message Site {
-  int64 id = 1;
+  uint64 id = 1;
   float latitude = 2;
   float longitude = 3;
-  int64 national_forest_id = 4;
-  int64 district_id = 5;
-  int64 altitude = 6;
+  uint64 national_forest_id = 4;
+  uint64 district_id = 5;
+  uint64 altitude = 6;
   string notes = 7;
   string created_at = 8;
 }
 
 message NationalForest {
-  int64 id = 1;
+  uint64 id = 1;
   string name = 2;
   string website = 3;
   string created_at = 4;
 }
 
 message District {
-  int64 id = 1;
-  int64 national_forest_id = 2;
+  uint64 id = 1;
+  uint64 national_forest_id = 2;
   string name = 3;
   string map_location = 4;
   string created_at = 5;
 }
 
-message GetAllSitesRequest { }
+message SitesGetRequest {
+    uint64 id = 1;
+}
 
-// GetAllSitesResponse contains information regarding a camp site
-message GetAllSitesResponse {
+message SitesGetResponse {
   repeated Site sites = 1;
 }
 
-message GetNationalForestRequest {
-  int64 id = 1;
+message SiteUpsertRequest {
+    Site site = 1;
 }
 
-message GetNationalForestResponse {
-  NationalForest forest = 1;
+message SiteUpsertResponse { }
+
+message NationalForestsGetRequest {
+    uint64 id = 1;
 }
 
-message GetDistrictRequest {
-  int64 id = 1;
-}
-
-message GetDistrictResponse {
-  District district = 1;
-}
-
-message GetAllNationalForestsRequest { }
-
-message GetAllNationalForestsResponse {
+message NationalForestsGetResponse {
   repeated NationalForest forests = 1;
 }
 
-message GetAllDistrictsRequest { }
+message DistrictsGetRequest {
+    uint64 id = 1;
+}
 
-message GetAllDistrictsResponse {
+message DistrictsGetResponse {
   repeated District districts = 1;
 }
 
-// CreateSiteRequest contains information necessary to create a new site
-message CreateSiteRequest {
-  Site site = 1;
-}
-
-message CreateSiteResponse { }
-
 // CreateNationalForestRequest contains information necessary to create a new national forest
-message CreateNationalForestRequest {
-  NationalForest forest = 1;
-}
-
-message CreateNationalForestResponse { }
+//message CreateNationalForestRequest {
+//  NationalForest forest = 1;
+//}
+//
+//message CreateNationalForestResponse { }

@@ -2,31 +2,37 @@ package api
 
 import (
 	"golang.org/x/net/context"
+	"log"
 
 	"github.com/pkg/errors"
 	pb "github.com/znacol/camping/backend/proto"
 )
 
-// GetAllSites retrieves all sites and their info
-func (s *API) GetAllSites(ctx context.Context, request *pb.GetAllSitesRequest) (*pb.GetAllSitesResponse, error) {
-	sites, err := s.dbClient.GetSites(ctx)
+// SitesGet retrieves all sites and or one by ID
+func (s *API) SitesGet(ctx context.Context, request *pb.SitesGetRequest) (*pb.SitesGetResponse, error) {
+	sites, err := s.dbClient.SitesGet(ctx, request.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "getting sites")
 	}
 
-	response := &pb.GetAllSitesResponse{
+	response := &pb.SitesGetResponse{
 		Sites: sites,
 	}
+
+	log.Printf("request: %+v", request)
+	log.Printf("response: %+v", response)
 
 	return response, nil
 }
 
-// CreateSite creates a new site in the database
-func (s *API) CreateSite(ctx context.Context, request *pb.CreateSiteRequest) (*pb.CreateSiteResponse, error) {
-	err := s.dbClient.CreateSite(ctx, request.Site.Latitude, request.Site.Longitude, request.Site.NationalForestId, request.Site.DistrictId, request.Site.Altitude, request.Site.Notes)
+// SiteUpsert creates or updates a site in the database
+func (s *API) SiteUpsert(ctx context.Context, request *pb.SiteUpsertRequest) (*pb.SiteUpsertResponse, error) {
+	// TODO: update db call to handle upsert functionality
+	err := s.dbClient.SiteUpsert(ctx, request.Site.Latitude, request.Site.Longitude, request.Site.NationalForestId, request.Site.DistrictId, request.Site.Altitude, request.Site.Notes)
 	if err != nil {
-		return nil, errors.Wrap(err, "creating site")
+		return nil, errors.Wrap(err, "upserting site")
 	}
 
-	return &pb.CreateSiteResponse{}, nil
+	// TODO: return created site
+	return &pb.SiteUpsertResponse{}, nil
 }

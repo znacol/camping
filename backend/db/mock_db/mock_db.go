@@ -34,91 +34,61 @@ func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 	return m.recorder
 }
 
-// GetSites mocks base method
-func (m *MockAPI) GetSites(ctx context.Context) ([]*proto.Site, error) {
+// SitesGet mocks base method
+func (m *MockAPI) SitesGet(ctx context.Context, id uint64) ([]*proto.Site, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSites", ctx)
+	ret := m.ctrl.Call(m, "SitesGet", ctx, id)
 	ret0, _ := ret[0].([]*proto.Site)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetSites indicates an expected call of GetSites
-func (mr *MockAPIMockRecorder) GetSites(ctx interface{}) *gomock.Call {
+// SitesGet indicates an expected call of SitesGet
+func (mr *MockAPIMockRecorder) SitesGet(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSites", reflect.TypeOf((*MockAPI)(nil).GetSites), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SitesGet", reflect.TypeOf((*MockAPI)(nil).SitesGet), ctx, id)
 }
 
-// GetNationalForest mocks base method
-func (m *MockAPI) GetNationalForest(ctx context.Context, id int64) (*proto.NationalForest, error) {
+// SiteUpsert mocks base method
+func (m *MockAPI) SiteUpsert(ctx context.Context, latitude, longitude float32, nationalForestID, districtID, altitude uint64, notes string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNationalForest", ctx, id)
-	ret0, _ := ret[0].(*proto.NationalForest)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret := m.ctrl.Call(m, "SiteUpsert", ctx, latitude, longitude, nationalForestID, districtID, altitude, notes)
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
-// GetNationalForest indicates an expected call of GetNationalForest
-func (mr *MockAPIMockRecorder) GetNationalForest(ctx, id interface{}) *gomock.Call {
+// SiteUpsert indicates an expected call of SiteUpsert
+func (mr *MockAPIMockRecorder) SiteUpsert(ctx, latitude, longitude, nationalForestID, districtID, altitude, notes interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNationalForest", reflect.TypeOf((*MockAPI)(nil).GetNationalForest), ctx, id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SiteUpsert", reflect.TypeOf((*MockAPI)(nil).SiteUpsert), ctx, latitude, longitude, nationalForestID, districtID, altitude, notes)
 }
 
-// GetAllNationalForests mocks base method
-func (m *MockAPI) GetAllNationalForests(ctx context.Context) ([]*proto.NationalForest, error) {
+// NationalForestsGet mocks base method
+func (m *MockAPI) NationalForestsGet(ctx context.Context, id uint64) ([]*proto.NationalForest, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAllNationalForests", ctx)
+	ret := m.ctrl.Call(m, "NationalForestsGet", ctx, id)
 	ret0, _ := ret[0].([]*proto.NationalForest)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetAllNationalForests indicates an expected call of GetAllNationalForests
-func (mr *MockAPIMockRecorder) GetAllNationalForests(ctx interface{}) *gomock.Call {
+// NationalForestsGet indicates an expected call of NationalForestsGet
+func (mr *MockAPIMockRecorder) NationalForestsGet(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllNationalForests", reflect.TypeOf((*MockAPI)(nil).GetAllNationalForests), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NationalForestsGet", reflect.TypeOf((*MockAPI)(nil).NationalForestsGet), ctx, id)
 }
 
-// GetDistrict mocks base method
-func (m *MockAPI) GetDistrict(ctx context.Context, id int64) (*proto.District, error) {
+// DistrictsGet mocks base method
+func (m *MockAPI) DistrictsGet(ctx context.Context, id uint64) ([]*proto.District, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetDistrict", ctx, id)
-	ret0, _ := ret[0].(*proto.District)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetDistrict indicates an expected call of GetDistrict
-func (mr *MockAPIMockRecorder) GetDistrict(ctx, id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDistrict", reflect.TypeOf((*MockAPI)(nil).GetDistrict), ctx, id)
-}
-
-// GetAllDistricts mocks base method
-func (m *MockAPI) GetAllDistricts(ctx context.Context) ([]*proto.District, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAllDistricts", ctx)
+	ret := m.ctrl.Call(m, "DistrictsGet", ctx, id)
 	ret0, _ := ret[0].([]*proto.District)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetAllDistricts indicates an expected call of GetAllDistricts
-func (mr *MockAPIMockRecorder) GetAllDistricts(ctx interface{}) *gomock.Call {
+// DistrictsGet indicates an expected call of DistrictsGet
+func (mr *MockAPIMockRecorder) DistrictsGet(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllDistricts", reflect.TypeOf((*MockAPI)(nil).GetAllDistricts), ctx)
-}
-
-// CreateSite mocks base method
-func (m *MockAPI) CreateSite(ctx context.Context, latitude, longitude float32, nationalForestID, districtID, altitude int64, notes string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateSite", ctx, latitude, longitude, nationalForestID, districtID, altitude, notes)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// CreateSite indicates an expected call of CreateSite
-func (mr *MockAPIMockRecorder) CreateSite(ctx, latitude, longitude, nationalForestID, districtID, altitude, notes interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSite", reflect.TypeOf((*MockAPI)(nil).CreateSite), ctx, latitude, longitude, nationalForestID, districtID, altitude, notes)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DistrictsGet", reflect.TypeOf((*MockAPI)(nil).DistrictsGet), ctx, id)
 }

@@ -17,29 +17,33 @@ export class DetailsComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         // Fetch national forest and district info
-        this.http.get('camping-api:8000/v1/camping/forest/' + this.selectedSite.national_forest_id, {}).subscribe(
+        this.http.get('//camping.api.localhost/v1/camping/forests/' + this.selectedSite.national_forest_id, {}).subscribe(
             results => {
-                this.nationalForest = results;
+                this.onForestsLoaded(results);
             },
             err => {
-                console.log('Error occured');
+                console.log(err, 'Error occurred');
             },
         );
 
-        this.http
-            .get('camping-api:8000/v1/camping/district/' + this.selectedSite.district_id, {})
-            // .pipe(finalize(() => this.dataLoaded = true))
-            .subscribe(
-                results => {
-                    this.district = results;
-                },
-                err => {
-                    console.log('Error occurred');
-                },
-            );
-
-        this.dataLoaded = true;
+        this.http.get('//camping.api.localhost/v1/camping/districts/' + this.selectedSite.district_id, {}).subscribe(
+            results => {
+                this.onDistrictsLoaded(results);
+            },
+            err => {
+                console.log(err, 'Error occurred');
+            },
+        );
     }
+
+    onForestsLoaded = (results: any) => {
+        this.nationalForest = results.forests[0];
+    };
+
+    onDistrictsLoaded = (results: any) => {
+        this.district = results.districts[0];
+        this.dataLoaded = true;
+    };
 
     ngOnChanges() {}
 }

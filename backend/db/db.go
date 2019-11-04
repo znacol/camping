@@ -15,12 +15,10 @@ import (
 // API is the interface that the DB struct fulfills, with the methods to interact with DB.
 // It exists to allow mocking of this package.
 type API interface {
-	GetSites(ctx context.Context) ([]*pb.Site, error)
-	GetNationalForest(ctx context.Context, id int64) (*pb.NationalForest, error)
-	GetAllNationalForests(ctx context.Context) ([]*pb.NationalForest, error)
-	GetDistrict(ctx context.Context, id int64) (*pb.District, error)
-	GetAllDistricts(ctx context.Context) ([]*pb.District, error)
-	CreateSite(ctx context.Context, latitude float32, longitude float32, nationalForestID int64, districtID int64, altitude int64, notes string) error
+	SitesGet(ctx context.Context, id uint64) ([]*pb.Site, error)
+	SiteUpsert(ctx context.Context, latitude float32, longitude float32, nationalForestID uint64, districtID uint64, altitude uint64, notes string) error
+	NationalForestsGet(ctx context.Context, id uint64) ([]*pb.NationalForest, error)
+	DistrictsGet(ctx context.Context, id uint64) ([]*pb.District, error)
 }
 
 type DB struct {

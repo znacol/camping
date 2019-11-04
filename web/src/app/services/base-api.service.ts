@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ApiParamEncoder } from './api-param-encoder';
 
 @Injectable()
 export class BaseApiService {
     protected apiUrl: string;
 
-    constructor(protected httpClient: HttpClient) {}
+    constructor(protected http: HttpClient) {
+        this.apiUrl = '//camping.api.localhost';
+    }
 
     protected createHeaders(): HttpHeaders {
         return new HttpHeaders();
     }
 
     protected createParams(params: any): HttpParams {
-        let httpParams = new HttpParams({ encoder: new ApiParamEncoder() });
+        let httpParams = new HttpParams({});
 
         Object.keys(params).forEach(key => {
             const value = params[key];
@@ -25,57 +26,45 @@ export class BaseApiService {
         return httpParams;
     }
 
-    get = (path: string, params: any = {}, mapResults: (r) => any = response => response.results): Observable<any> => {
-        return this.httpClient
+    get = (path: string, params: any = {}): Observable<any> => {
+        return this.http
             .get<any>(`${this.apiUrl}${path}`, {
                 headers: this.createHeaders(),
                 params: this.createParams(params),
             })
-            .pipe(
-                map(mapResults),
-                catchError(this._handleError),
-            );
+            .pipe(catchError(this.handleError));
     };
 
-    post = (path: string, params: any = {}, body: any = {}, mapResults: (r) => any = response => response.results): Observable<any> => {
-        return this.httpClient
+    post = (path: string, params: any = {}, body: any = {}): Observable<any> => {
+        return this.http
             .post<any>(`${this.apiUrl}${path}`, body, {
                 headers: this.createHeaders(),
                 params: this.createParams(params),
             })
-            .pipe(
-                map(mapResults),
-                catchError(this._handleError),
-            );
+            .pipe(catchError(this.handleError));
     };
 
     delete = (path: string, params: any, body: any): Observable<any> => {
         // http.delete() doesn't support body, need to use generic request
-        return this.httpClient
+        return this.http
             .request<any>('delete', `${this.apiUrl}${path}`, {
                 headers: this.createHeaders(),
                 params: this.createParams(params),
-                body: body,
+                body,
             })
-            .pipe(
-                map(response => response.results),
-                catchError(this._handleError),
-            );
+            .pipe(catchError(this.handleError));
     };
 
     put = (path: string, params: any, body: any): Observable<any> => {
-        return this.httpClient
+        return this.http
             .put<any>(`${this.apiUrl}${path}`, body, {
                 headers: this.createHeaders(),
                 params: this.createParams(params),
             })
-            .pipe(
-                map(response => response.results),
-                catchError(this._handleError),
-            );
+            .pipe(catchError(this.handleError));
     };
 
-    private _handleError = (resp: HttpErrorResponse) => {
+    private handleError = (resp: HttpErrorResponse) => {
         if (resp.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error(`An error occurred: ${resp.error.message}`);

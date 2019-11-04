@@ -16,20 +16,21 @@ func TestSitesGet(t *testing.T) {
 	api, mockCtrl, mockDB := newTestAPI(t)
 
 	// Create parameters
-	req := &pb.GetAllSitesRequest{}
+	req := &pb.SitesGetRequest{}
 
 	// Set mock expectations and return values
-	expectation := &pb.GetAllSitesResponse{
+	expectation := &pb.SitesGetResponse{
 	}
-	mockDB.EXPECT().GetSites(
+	mockDB.EXPECT().SitesGet(
 		gomock.Any(), // ctx
+		uint64(0),
 	).Return(
 		expectation.Sites,
 		nil, // err
 	)
 
 	// Call method
-	resp, err := api.GetAllSites(context.Background(), req)
+	resp, err := api.SitesGet(context.Background(), req)
 	if err != nil {
 		t.Error("Expected no error: ", err)
 	}
@@ -42,3 +43,6 @@ func TestSitesGet(t *testing.T) {
 	// Teardown and check mock controller
 	teardown(t, mockCtrl)
 }
+
+// TODO: site upsert
+// TODO: singular site get

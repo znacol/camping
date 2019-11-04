@@ -20,23 +20,9 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         // Fetch all sites
-        // TODO create API service
-        this.http.get('//camping.api.localhost/v1/camping/sites', {}).subscribe(
-            results => {
-                this.onSitesLoaded(results);
-            },
-            err => {
-                console.log(err, 'Error occurred');
-            },
-        );
-
-        // this.apiService
-        //   .getAllSites()
-        //   .subscribe(
-        //     results => this.onSitesLoaded(results),
-        //     err => console.log(err, 'Error loading sites')
-        //   );
-        //
+        this.apiService
+            .getAllSites()
+            .subscribe(results => this.onSitesLoaded(results), err => console.log(err, 'Error loading sites'));
     }
 
     onSitesLoaded = (results: any) => {
