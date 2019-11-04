@@ -26,10 +26,7 @@ func init() {
 }
 
 func createSite() *cobra.Command {
-	site := &pb.Site{}
-	req := &pb.SiteUpsertRequest{
-		Site: site,
-	}
+	req := &pb.SiteUpsertRequest{}
 
 	cmd := &cobra.Command{
 		Use:   "create",
@@ -40,11 +37,11 @@ func createSite() *cobra.Command {
 			return err
 		},
 	}
-	cmd.Flags().Float32VarP(&site.Latitude, "latitude", "c", 0, "site's latitude")
-	cmd.Flags().Float32VarP(&site.Longitude, "longitude", "l", 0, "site's longitude")
-	cmd.Flags().Uint64VarP(&site.NationalForestId, "nationalforest", "f", 1, "national forest ID")
-	cmd.Flags().Uint64VarP(&site.DistrictId, "district", "d", 1, "district ID")
-	cmd.Flags().Uint64VarP(&site.Altitude, "altitude", "a", 0 , "site altitude")
+	cmd.Flags().Float32VarP(&req.Latitude, "latitude", "c", 0, "site's latitude")
+	cmd.Flags().Float32VarP(&req.Longitude, "longitude", "l", 0, "site's longitude")
+	cmd.Flags().Uint64VarP(&req.NationalForestId, "nationalforest", "f", 1, "national forest ID")
+	cmd.Flags().Uint64VarP(&req.DistrictId, "district", "d", 1, "district ID")
+	cmd.Flags().Uint64VarP(&req.Altitude, "altitude", "a", 0 , "site altitude")
 	return cmd
 }
 

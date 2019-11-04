@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
+import { ApiService } from '../../services/api.service';
 
 @Component({
     selector: 'app-details',
@@ -13,27 +12,16 @@ export class DetailsComponent implements OnInit, OnChanges {
     district: any;
     dataLoaded = false;
 
-    constructor(private http: HttpClient) {}
+    constructor(private apiService: ApiService) {}
 
     ngOnInit() {
         // Fetch national forest and district info
-        this.http.get('//camping.api.localhost/v1/camping/forests/' + this.selectedSite.national_forest_id, {}).subscribe(
-            results => {
-                this.onForestsLoaded(results);
-            },
-            err => {
-                console.log(err, 'Error occurred');
-            },
-        );
-
-        this.http.get('//camping.api.localhost/v1/camping/districts/' + this.selectedSite.district_id, {}).subscribe(
-            results => {
-                this.onDistrictsLoaded(results);
-            },
-            err => {
-                console.log(err, 'Error occurred');
-            },
-        );
+        this.apiService
+            .getNationalForests(this.selectedSite.national_forest_id)
+            .subscribe(results => this.onForestsLoaded(results), err => console.log(err, 'Error loading forests'));
+        this.apiService
+            .getDistricts(this.selectedSite.district_id)
+            .subscribe(results => this.onDistrictsLoaded(results), err => console.log(err, 'Error loading districts'));
     }
 
     onForestsLoaded = (results: any) => {

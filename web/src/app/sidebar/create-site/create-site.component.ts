@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 
 import { site } from '../../site';
+import { ApiService } from '../../services/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-create-site',
@@ -16,41 +17,33 @@ export class CreateSiteComponent implements OnInit {
     nationalForests: any;
     districts: any;
 
-    constructor(private http: HttpClient) {}
+    constructor(private apiService: ApiService, private http: HttpClient) {}
 
     ngOnInit() {
         // Fetch national forest and district info for creation dropdown
-        this.http
-            .get('//camping.api.localhost/v1/camping/forests', {})
-            .pipe(finalize(() => (this.dataLoaded = true)))
-            .subscribe(
-                results => {
-                    this.nationalForests = results;
-                },
-                err => {
-                    console.log(err, 'Failed to retrieve national forests');
-                },
-            );
-
-        this.http
-            .get('//camping.api.localhost/v1/camping/districts', {})
-            .pipe(finalize(() => (this.dataLoaded = true)))
-            .subscribe(
-                results => {
-                    this.districts = results;
-                },
-                err => {
-                    console.log(err, 'Failed to retrieve districts');
-                },
-            );
+        this.apiService
+            .getNationalForests()
+            .subscribe(results => this.onForestsLoaded(results), err => console.log(err, 'Error loading forests'));
+        this.apiService
+            .getDistricts()
+            .subscribe(results => this.onDistrictsLoaded(results), err => console.log(err, 'Error loading districts'));
     }
+
+    onForestsLoaded = (results: any) => {
+        this.nationalForests = results;
+    };
+
+    onDistrictsLoaded = (results: any) => {
+        this.districts = results;
+        this.dataLoaded = true;
+    };
 
     submitSite = form => {
         this.submitted = true;
 
         // TODO refresh list of sites
         this.http
-            .post('//camping.api.localhost/v1/camping/site', {
+            .put('//camping.api.localhost/v1/camping/sites', {
                 latitude: form.value.latitude,
                 longitude: form.value.longitude,
                 national_forest_id: form.value.forest,
@@ -60,12 +53,14 @@ export class CreateSiteComponent implements OnInit {
             })
             .pipe(finalize(() => form.reset())) // TODO navigate to details view
             .subscribe(
-                results => {
-                    console.log(results);
-                },
+                _ => { },
                 err => {
                     console.log(err, 'Error creating site');
                 },
             );
+
+        // this.apiService
+        //     .createSite(form.value.latitude, form.value.longitude, form.value.forest, form.value.district, form.value.altitude, form.value.notes)
+        //     .subscribe(_ => {}, err => console.log(err, 'Error creating site'));
     };
 }

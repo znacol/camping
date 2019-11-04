@@ -115,32 +115,6 @@
         ]
       }
     },
-    "/v1/camping/site": {
-      "post": {
-        "operationId": "SiteUpsert",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/campingSiteUpsertResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/campingSite"
-            }
-          }
-        ],
-        "tags": [
-          "CampingService"
-        ]
-      }
-    },
     "/v1/camping/sites": {
       "get": {
         "operationId": "SitesGet",
@@ -159,6 +133,30 @@
             "required": false,
             "type": "string",
             "format": "uint64"
+          }
+        ],
+        "tags": [
+          "CampingService"
+        ]
+      },
+      "put": {
+        "operationId": "SiteUpsert",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/campingSiteUpsertResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/campingSiteUpsertRequest"
+            }
           }
         ],
         "tags": [
@@ -286,6 +284,34 @@
           "type": "string"
         },
         "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "campingSiteUpsertRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "national_forest_id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "district_id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "altitude": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "notes": {
           "type": "string"
         }
       }

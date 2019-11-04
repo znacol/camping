@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 
 import { site } from './site';
@@ -16,7 +15,7 @@ export class AppComponent implements OnInit {
     selectedSite: site;
     newSite: site;
 
-    constructor(private apiService: ApiService, private http: HttpClient) {}
+    constructor(private apiService: ApiService) {}
 
     ngOnInit(): void {
         // Fetch all sites

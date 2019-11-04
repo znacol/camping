@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"github.com/pkg/errors"
-	"log"
 
 	sq "github.com/Masterminds/squirrel"
 	pb "github.com/znacol/camping/backend/proto"
@@ -50,8 +49,6 @@ func (d *DB) NationalForestsGet(ctx context.Context, id uint64) ([]*pb.NationalF
 // DistrictsGet retrieves all districts
 func (d *DB) DistrictsGet(ctx context.Context, id uint64) ([]*pb.District, error) {
 	query := sq.StatementBuilder.PlaceholderFormat(sq.Dollar).Select("*").From("district")
-
-	log.Printf("district", id)
 
 	if id > 0 {
 		query = query.Where("id = ?", id)

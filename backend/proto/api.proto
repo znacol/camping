@@ -15,8 +15,8 @@ service CampingService {
 
     rpc SiteUpsert(SiteUpsertRequest) returns (SiteUpsertResponse) {
         option (google.api.http) = {
-              post: "/v1/camping/site",
-              body: "site"
+              put: "/v1/camping/sites"
+              body: "*"
             };
     }
 
@@ -39,8 +39,8 @@ service CampingService {
           }
 //    rpc CreateNationalForest(CreateNationalForestRequest) returns (CreateNationalForestResponse) {
 //            option (google.api.http) = {
-//              post: "/v1/camping/forest"
-//              body: "forest"
+//              put: "/v1/camping/forests"
+//              body: "*"
 //            };
 //          }
 }
@@ -80,7 +80,12 @@ message SitesGetResponse {
 }
 
 message SiteUpsertRequest {
-    Site site = 1;
+    float latitude = 1;
+    float longitude = 2;
+    uint64 national_forest_id = 3;
+    uint64 district_id = 4;
+    uint64 altitude = 5;
+    string notes = 6;
 }
 
 message SiteUpsertResponse { }
