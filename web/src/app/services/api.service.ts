@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 // import {environment} from '../../environments/environment';
-import {BaseApiService} from './base-api.service';
-import {ApiParamEncoder} from './api-param-encoder';
-import {Observable} from 'rxjs';
+import { BaseApiService } from './base-api.service';
+import { ApiParamEncoder } from './api-param-encoder';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ApiService extends BaseApiService {
@@ -14,12 +14,11 @@ export class ApiService extends BaseApiService {
     }
 
     protected createHeaders(): HttpHeaders {
-        return new HttpHeaders()
-            .set('Content-Type', 'application/json');
+        return new HttpHeaders().set('Content-Type', 'application/json');
     }
 
     protected createParams(params: any): HttpParams {
-        let httpParams = new HttpParams({encoder: new ApiParamEncoder()});
+        let httpParams = new HttpParams({ encoder: new ApiParamEncoder() });
 
         Object.keys(params).forEach(key => {
             const value = params[key];
@@ -31,6 +30,5 @@ export class ApiService extends BaseApiService {
 
     getAllSites = (): Observable<any> => {
         return this.get('/v1/camping/sites', {});
-    }
-
+    };
 }

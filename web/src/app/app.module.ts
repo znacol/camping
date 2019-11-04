@@ -15,26 +15,19 @@ import { DetailsComponent } from './sidebar/details/details.component';
 
 import { SharedModule } from './shared/shared.module';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    CreateSiteComponent,
-    DetailsComponent,
-
-  ],
-  imports: [
-    BrowserModule,
-    AgmCoreModule.forRoot({
-      apiKey: environment.googleApiKey
-    }),
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    SharedModule
-  ],
-  providers: [ApiService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, SidebarComponent, CreateSiteComponent, DetailsComponent],
+    imports: [
+        BrowserModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.googleApiKey,
+        }),
+        HttpClientModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        SharedModule,
+    ],
+    providers: [ApiService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
