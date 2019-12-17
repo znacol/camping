@@ -9,7 +9,7 @@ services:
       entrypoint: /bin/sh
       command:
         - "-cexu"
-        - "CGO_ENABLED=0 go build -a -o /go/bin/api github.com/znacol/camping/backend/cmd/api && /go/bin/api"
+        - "CGO_ENABLED=0 go build -a -o /go/bin/api github.com/znacol/camping/go/cmd/api && /go/bin/api"
       ports:
         - "50051" # gRPC
         - "8000" # HTTP
@@ -83,7 +83,7 @@ services:
       environment:
         - SWAGGER_JSON=/mnt/api.swagger.json
       volumes:
-        - ./backend/proto:/mnt
+        - ./go/proto:/mnt
 
     # Traefik proxy
     reverse-proxy:

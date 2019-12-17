@@ -1,7 +1,7 @@
 #!/bin/sh -cexu
 
 # Build and run migrations
-go run github.com/znacol/camping/backend/cmd/db-migrator
+go run github.com/znacol/camping/go/cmd/db-migrator
 
 # Install psql
 apt update -qq

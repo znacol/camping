@@ -11,7 +11,7 @@ COPY package*.json ./
 # Install packages
 RUN set -x \
 	&& npm install \
-    && npm install -g @angular/cli@8.0.6
+    && npm install -g @angular/cli@8.3.20
 
 # Copy the rest of the project
 COPY . .
