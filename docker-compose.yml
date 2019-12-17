@@ -5,7 +5,7 @@ services:
     camping-api:
       container_name: camping-api
       hostname: camping-api
-      image: golang:1.12.7-alpine3.10
+      image: golang:1.13.4-alpine3.10
       entrypoint: /bin/sh
       command:
         - "-cexu"
@@ -43,7 +43,7 @@ services:
     # Run DB schema migrations and insert dev data
     camping-db-preload:
       container_name: camping-db-preload
-      image: golang:1.12.9-buster
+      image: golang:1.13.4-buster
       entrypoint: /bin/sh
       command:
         - "/go/src/github.com/znacol/camping/docker/db_preload/db-preload.sh"

@@ -317,7 +317,12 @@
       }
     },
     "campingSiteUpsertResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "site": {
+          "$ref": "#/definitions/campingSite"
+        }
+      }
     },
     "campingSitesGetResponse": {
       "type": "object",

@@ -28,6 +28,6 @@ export class ApiService extends BaseApiService {
     };
 
     createSite = (latitude: number, longitude: number, forestID: number, districtID: number, altitude: number, notes: string): Observable<any> => {
-        return this.put('v1/camping/sites', {}, {latitude, longitude, national_forest_id: forestID, district_id: districtID, altitude, notes});
-    }
+        return this.put('v1/camping/sites', {}, { latitude, longitude, national_forest_id: forestID, district_id: districtID, altitude, notes });
+    };
 }

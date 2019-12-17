@@ -127,7 +127,7 @@ func startGrpcServer(ctx context.Context, apiHandler *api.API, shutdownWG *sync.
 	// Wait for shutdown signal
 	<-ctx.Done()
 
-	// Gracefully handle all current grpc connections (unfortunately no way to put a timeout on this)
+	// Gracefully handle all current grpc connections
 	grpcServer.GracefulStop()
 	log.Debug("Camping API GRPC server shutdown")
 }
@@ -165,7 +165,7 @@ func startRestGateway(ctx context.Context, apiHandler *api.API, shutdownWG *sync
 	go func() {
 		log.Info("Starting Camping API REST...")
 		if serveErr := httpRestServer.ListenAndServe(); serveErr != nil && serveErr != http.ErrServerClosed {
-			log.WithError(serveErr).Fatal("Unable to start camping api rest")
+			log.WithError(serveErr).Fatal("Unable to start Camping API REST")
 		}
 		log.Debug("Camping API REST server closed")
 	}()

@@ -9,7 +9,7 @@ import { site } from './site';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-    // TODO handle multiple map types
+    // TODO: handle multiple map types
     mapType = 'roadmap';
     sites: site[] = [];
     selectedSite: site;
@@ -19,9 +19,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         // Fetch all sites
-        this.apiService
-            .getAllSites()
-            .subscribe(results => this.onSitesLoaded(results), err => console.log(err, 'Error loading sites'));
+        this.apiService.getAllSites().subscribe(results => this.onSitesLoaded(results), err => console.log(err, 'Error loading sites'));
     }
 
     onSitesLoaded = (results: any) => {
@@ -33,13 +31,13 @@ export class AppComponent implements OnInit {
     markerSelected = (id: number) => {
         // Get site info from ID
         this.selectedSite = this.sites.find(i => i.id === id);
-        // TODO fix logic...
+        // TODO: fix logic...
         this.newSite = undefined;
     };
 
     siteClicked = event => {
         this.newSite = event.coords;
-        // TODO fix logic...
+        // TODO: fix logic...
         this.selectedSite = undefined;
     };
 }

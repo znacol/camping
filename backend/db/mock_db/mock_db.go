@@ -50,11 +50,12 @@ func (mr *MockAPIMockRecorder) SitesGet(ctx, id interface{}) *gomock.Call {
 }
 
 // SiteUpsert mocks base method
-func (m *MockAPI) SiteUpsert(ctx context.Context, latitude, longitude float32, nationalForestID, districtID, altitude uint64, notes string) error {
+func (m *MockAPI) SiteUpsert(ctx context.Context, latitude, longitude float32, nationalForestID, districtID, altitude uint64, notes string) (*proto.Site, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SiteUpsert", ctx, latitude, longitude, nationalForestID, districtID, altitude, notes)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*proto.Site)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // SiteUpsert indicates an expected call of SiteUpsert

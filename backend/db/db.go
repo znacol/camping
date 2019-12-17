@@ -16,7 +16,7 @@ import (
 // It exists to allow mocking of this package.
 type API interface {
 	SitesGet(ctx context.Context, id uint64) ([]*pb.Site, error)
-	SiteUpsert(ctx context.Context, latitude float32, longitude float32, nationalForestID uint64, districtID uint64, altitude uint64, notes string) error
+	SiteUpsert(ctx context.Context, latitude float32, longitude float32, nationalForestID uint64, districtID uint64, altitude uint64, notes string) (*pb.Site, error)
 	NationalForestsGet(ctx context.Context, id uint64) ([]*pb.NationalForest, error)
 	DistrictsGet(ctx context.Context, id uint64) ([]*pb.District, error)
 }
@@ -83,9 +83,7 @@ func postgresConfig(user, password, schemaName, host, port string) string {
 	)
 }
 
-// Migrate will perform any necessary migrations on the database.  The location
-// of the migration directory will need to be passed to this, since it will
-// probably be manually copied to the server
+// Migrate will perform any necessary migrations on the database
 func (d *DB) Migrate(migrateDir string) error {
 	migrator, err := gomigrate.NewMigrator(d.dbClient.DB, gomigrate.Postgres{}, migrateDir)
 	if err != nil {

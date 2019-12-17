@@ -20,7 +20,6 @@ require (
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.4.0
 	golang.org/x/net v0.0.0-20190620200207-3b0461eec859
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072
 	google.golang.org/grpc v1.21.1
 )

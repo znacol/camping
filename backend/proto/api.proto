@@ -88,7 +88,9 @@ message SiteUpsertRequest {
     string notes = 6;
 }
 
-message SiteUpsertResponse { }
+message SiteUpsertResponse {
+    Site site = 1;
+}
 
 message NationalForestsGetRequest {
     uint64 id = 1;

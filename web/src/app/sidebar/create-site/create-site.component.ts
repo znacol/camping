@@ -21,12 +21,8 @@ export class CreateSiteComponent implements OnInit {
 
     ngOnInit() {
         // Fetch national forest and district info for creation dropdown
-        this.apiService
-            .getNationalForests()
-            .subscribe(results => this.onForestsLoaded(results), err => console.log(err, 'Error loading forests'));
-        this.apiService
-            .getDistricts()
-            .subscribe(results => this.onDistrictsLoaded(results), err => console.log(err, 'Error loading districts'));
+        this.apiService.getNationalForests().subscribe(results => this.onForestsLoaded(results), err => console.log(err, 'Error loading forests'));
+        this.apiService.getDistricts().subscribe(results => this.onDistrictsLoaded(results), err => console.log(err, 'Error loading districts'));
     }
 
     onForestsLoaded = (results: any) => {
@@ -53,7 +49,7 @@ export class CreateSiteComponent implements OnInit {
             })
             .pipe(finalize(() => form.reset())) // TODO navigate to details view
             .subscribe(
-                _ => { },
+                _ => {},
                 err => {
                     console.log(err, 'Error creating site');
                 },

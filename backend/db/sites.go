@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"github.com/pkg/errors"
+	"log"
 
 	sq "github.com/Masterminds/squirrel"
 	pb "github.com/znacol/camping/backend/proto"
@@ -65,19 +66,35 @@ func (d *DB) DistrictsGet(ctx context.Context, id uint64) ([]*pb.District, error
 	return list, err
 }
 
-// CreateSite saves a new site
-// TODO: add upsert functionality
-func (d *DB) SiteUpsert(ctx context.Context, latitude float32, longitude float32, nationalForestID uint64, districtID uint64, altitude uint64, notes string) error {
-	_, err := d.dbClient.ExecContext(ctx, `
+// SiteUpsert updates or creates a site
+func (d *DB) SiteUpsert(ctx context.Context, latitude float32, longitude float32, nationalForestID uint64, districtID uint64, altitude uint64, notes string) (*pb.Site, error) {
+	var lastInsertId uint64
+	err := d.dbClient.QueryRow(`
 		INSERT INTO site (latitude, longitude, national_forest_id, district_id, altitude, notes)
 			VALUES ($1, $2, $3, $4, $5, $6)
+			ON CONFLICT (latitude, longitude) DO UPDATE
+			SET national_forest_id = $3,
+			    district_id = $4,
+			    altitude = $5,
+			    notes = $6
+		RETURNING id
 	`,
 		latitude,
 		longitude,
 		nationalForestID,
 		districtID,
 		altitude,
-		notes)
+		notes).Scan(&lastInsertId)
 
-	return err
+
+	// Get site
+	sites, err := d.SitesGet(ctx, lastInsertId)
+	if err != nil {
+		return nil, err
+	}
+	if len(sites) != 1 {
+		log.Panic("Unable to retrieve site that was just inserted")
+	}
+
+	return sites[0], nil
 }

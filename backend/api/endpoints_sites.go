@@ -22,12 +22,11 @@ func (s *API) SitesGet(ctx context.Context, request *pb.SitesGetRequest) (*pb.Si
 
 // SiteUpsert creates or updates a site in the database
 func (s *API) SiteUpsert(ctx context.Context, request *pb.SiteUpsertRequest) (*pb.SiteUpsertResponse, error) {
-	// TODO: update db call to handle upsert functionality
-	err := s.dbClient.SiteUpsert(ctx, request.Latitude, request.Longitude, request.NationalForestId, request.DistrictId, request.Altitude, request.Notes)
+	site, err := s.dbClient.SiteUpsert(ctx, request.Latitude, request.Longitude, request.NationalForestId, request.DistrictId, request.Altitude, request.Notes)
 	if err != nil {
 		return nil, errors.Wrap(err, "upserting site")
 	}
 
-	// TODO: return created site
-	return &pb.SiteUpsertResponse{}, nil
+
+	return &pb.SiteUpsertResponse{Site: site}, nil
 }
