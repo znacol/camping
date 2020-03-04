@@ -1,23 +1,17 @@
-FROM node:12
+FROM node:13.7
 
 # Create app directory
 WORKDIR /web
 
 COPY package*.json ./
 
-# Set NPM_TOKEN for the .npmrc file
-# COPY .npmrc.dev ./.npmrc
-
 # Install packages
 RUN set -x \
 	&& npm install \
-    && npm install -g @angular/cli@8.3.20
+    && npm install -g @angular/cli@9.0.1
 
 # Copy the rest of the project
 COPY . .
-
-# Remove the .npmrc once it isn't needed
-# RUN rm -f ./.npmrc
 
 ENV env=dev
 

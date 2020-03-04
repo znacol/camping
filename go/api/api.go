@@ -5,11 +5,12 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/rs/cors"
-	"github.com/znacol/camping/go/db"
-	pb "github.com/znacol/camping/go/proto"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/znacol/camping/go/db"
+	pb "github.com/znacol/camping/go/proto"
 )
 
 var _ pb.CampingServiceServer = &API{}

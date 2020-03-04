@@ -26,7 +26,7 @@ services:
       networks:
         - camping
 
-    # mySQL database
+    # postgres database
     camping-db:
       image: postgres:11.4
       container_name: camping-db

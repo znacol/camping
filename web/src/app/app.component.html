@@ -1,24 +1,40 @@
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY">
+    </script>
+</head>
 <app-navbar></app-navbar>
 <div class="container">
   <div class="map">
-    <agm-map
-      [fitBounds]=true
-      [mapTypeId]='mapType'
-      (mapClick)="siteClicked($event)">
+<!--    <agm-map-->
+<!--      [fitBounds]=true-->
+<!--      [mapTypeId]='mapType'-->
+<!--      (mapClick)="siteClicked($event)">-->
 
-      <agm-marker *ngFor="let site of sites"
-        [latitude]="site.latitude" [longitude]="site.longitude"
-        (markerClick)="markerSelected(site.id)"
-        [agmFitBounds]="true">
-      </agm-marker>
+<!--      <agm-marker *ngFor="let site of sites"-->
+<!--        [latitude]="site.latitude" [longitude]="site.longitude"-->
+<!--        (markerClick)="markerSelected(site.id)"-->
+<!--        [agmFitBounds]="true">-->
+<!--      </agm-marker>-->
+<!--    </agm-map>-->
 
-      <agm-kml-layer url="../assets/unnamed.gdb.kml"></agm-kml-layer>
-
-    </agm-map>
+      <google-map height="400px"
+                  width="750px"
+                  [center]="center"
+                  [zoom]="zoom"
+                  (mapClick)="addMarker($event)"
+                  (mapMousemove)="move($event)"
+                  (mapRightclick)="removeLastMarker()">
+          <map-marker #marker
+                      *ngFor="let markerPosition of markerPositions"
+                      [position]="markerPosition"
+                      [options]="markerOptions"
+                      (mapClick)="openInfoWindow(marker)"></map-marker>
+          <map-info-window>Info Window content</map-info-window>
+      </google-map>
   </div>
 
-  <div>
-    <app-sidebar [selectedSite]="selectedSite" [newSite]="newSite"></app-sidebar>
-  </div>
+<!--  <div>-->
+<!--    <app-sidebar [selectedSite]="selectedSite" [newSite]="newSite"></app-sidebar>-->
+<!--  </div>-->
 
 </div>

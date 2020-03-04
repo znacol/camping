@@ -32,7 +32,7 @@ func newTestAPI(tb testing.TB) (*API, *gomock.Controller, *mock_db.MockAPI) {
 	return api, mockCtrl, mockDB
 }
 
-// teardown finishes the mock controller.
+// teardown finishes the mock controller
 func teardown(tb testing.TB, mockCtrl *gomock.Controller) {
 	tb.Helper()
 
